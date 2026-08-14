@@ -1,134 +1,126 @@
-<section
-  class="sec"
-  id="combos"
-  data-scene="3"
->
+<section class="pl-bundles" id="bundles">
 
-  <div class="wrap">
+  <div class="pl-bundles__container">
 
-    <div class="panel-head rv">
+    <!-- HEADER -->
+    <div class="pl-bundles__header">
 
-      <span class="kicker">
+      <span class="pl-bundles__kicker">
         {{ section.settings.kicker }}
       </span>
 
-      <h2
-        class="d2"
-        style="margin-top:12px"
-      >
+      <h2 class="pl-bundles__title">
         {{ section.settings.heading }}
       </h2>
 
-      <div class="rule">
-        <i></i>
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-        </svg>
-
-        <i></i>
+      <div class="pl-bundles__divider">
+        <span></span>
+        <span class="pl-bundles__leaf">⌄</span>
+        <span></span>
       </div>
 
-      <p
-        class="lede"
-        style="margin:14px auto 0"
-      >
+      <p class="pl-bundles__description">
         {{ section.settings.description }}
       </p>
 
     </div>
 
 
-    <div class="comborail rv">
+    <!-- SLIDER -->
+    <div class="pl-bundles__slider-wrapper">
 
-      {% for block in section.blocks %}
+      <button
+        class="pl-bundles__arrow pl-bundles__arrow--left"
+        type="button"
+        aria-label="Previous bundle"
+      >
+        ←
+      </button>
 
-        <article
-          class="glass combo {% if block.settings.featured %}hero-combo{% endif %}"
-          {{ block.shopify_attributes }}
-        >
+      <div
+        class="pl-bundles__slider"
+        data-bundle-slider
+      >
 
-          <div class="tray">
+        {% for block in section.blocks %}
 
-            {% if block.settings.saving != blank %}
-              <span class="save">
+          <article
+            class="pl-bundle-card{% if forloop.index == 2 %} is-featured{% endif %}"
+            data-bundle-card
+            {{ block.shopify_attributes }}
+          >
+
+            <!-- SAVING BADGE -->
+            <div class="pl-bundle-card__top">
+
+              <span class="pl-bundle-card__saving">
                 {{ block.settings.saving }}
               </span>
-            {% endif %}
 
-            {% if block.settings.flag != blank %}
-              <span class="flag">
-                {{ block.settings.flag }}
-              </span>
-            {% endif %}
+              {% if block.settings.best_value != blank %}
+                <span class="pl-bundle-card__value">
+                  {{ block.settings.best_value }}
+                </span>
+              {% endif %}
+
+            </div>
 
 
-            <div class="stack">
+            <!-- PRODUCTS -->
+            <div class="pl-bundle-card__products">
 
               {% for i in (1..3) %}
 
-                {% assign product_key = 'product_' | append: i %}
-                {% assign product = all_products[block.settings[product_key]] %}
+                {% assign image_key = 'product_' | append: i | append: '_image' %}
+                {% assign name_key = 'product_' | append: i | append: '_name' %}
+                {% assign benefit_key = 'product_' | append: i | append: '_benefit' %}
 
-                {% if product != blank %}
+                {% assign product_image = block.settings[image_key] %}
+                {% assign product_name = block.settings[name_key] %}
+                {% assign product_benefit = block.settings[benefit_key] %}
 
-                  {% unless forloop.first %}
-                    <span
-                      class="plus"
-                      aria-hidden="true"
-                    >
-                      +
-                    </span>
+                {% if product_name != blank %}
+
+                  <div class="pl-bundle-product">
+
+                    <div class="pl-bundle-product__image">
+
+                      {% if product_image != blank %}
+
+                        {{
+                          product_image
+                          | image_url: width: 180
+                          | image_tag:
+                            loading: 'lazy',
+                            alt: product_name
+                        }}
+
+                      {% else %}
+
+                        <div class="pl-bottle">
+                          <div class="pl-bottle__cap"></div>
+
+                          <div class="pl-bottle__body">
+                            <div class="pl-bottle__label">
+                              <span></span>
+                              <span></span>
+                            </div>
+                          </div>
+                        </div>
+
+                      {% endif %}
+
+                    </div>
+
+                    <div class="pl-bundle-product__benefit">
+                      {{ product_benefit }}
+                    </div>
+
+                  </div>
+
+                  {% unless i == 3 %}
+                    <span class="pl-bundle-product__plus">+</span>
                   {% endunless %}
-
-
-                  <span class="it">
-
-                    {% if product.featured_image %}
-
-                      {{
-                        product.featured_image
-                        | image_url: width: 250
-                        | image_tag:
-                          class: 'pimg',
-                          loading: 'lazy',
-                          alt: product.title
-                      }}
-
-                    {% else %}
-
-                      <span
-                        class="tile"
-                        aria-label="{{ product.title | escape }}"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1.6"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-                          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-                        </svg>
-                      </span>
-
-                    {% endif %}
-                    {% assign product_text_key = product_key | append: '_text' %}
-                    <span>
-                        {{ block.settings[product_text_key] }}
-                    </span>
-
-                  </span>
 
                 {% endif %}
 
@@ -136,247 +128,525 @@
 
             </div>
 
-          </div>
+
+            <!-- CARD CONTENT -->
+            <div class="pl-bundle-card__content">
+
+              <h3 class="pl-bundle-card__title">
+                {{ block.settings.title }}
+              </h3>
+
+              <span class="pl-bundle-card__count">
+                {{ block.settings.product_count }}
+              </span>
+
+              <p class="pl-bundle-card__description">
+                {{ block.settings.description }}
+              </p>
 
 
-          <div class="body">
+              <!-- PRICE -->
+              <div class="pl-bundle-card__pricing">
 
-            <h3>
-              {{ block.settings.title }}
-            </h3>
+                <strong>
+                  {{ block.settings.price }}
+                </strong>
 
-            <div class="cnt">
-              {{ block.settings.product_count }}
-            </div>
+                {% if block.settings.original_price != blank %}
+                  <del>
+                    {{ block.settings.original_price }}
+                  </del>
+                {% endif %}
 
-            <p class="inc">
-              {{ block.settings.description }}
-            </p>
+                <span class="pl-bundle-card__save">
+                  {{ block.settings.save }}
+                </span>
 
-
-            <div class="prow">
-
-              <strong>
-                {{ block.settings.price }}
-              </strong>
-
-              <s>
-                {{ block.settings.compare_price }}
-              </s>
-
-              <em>
-                {{ block.settings.saving }}
-              </em>
-
-            </div>
+              </div>
 
 
-            <div class="fine">
-              Inclusive of all taxes · COD available
-            </div>
+              <p class="pl-bundle-card__tax">
+                Inclusive of all taxes · COD available
+              </p>
 
 
-            <a
-              class="btn {% if block.settings.featured %}btn-primary{% else %}btn-ghost{% endif %}"
-              href="{{ block.settings.link }}"
-            >
-              {{ block.settings.button_text }}
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+              <!-- BUTTON -->
+              <a
+                href="{{ block.settings.link }}"
+                class="pl-bundle-card__button"
               >
-                <path d="M5 12h13m-5-6 6 6-6 6"/>
-              </svg>
+                SHOP BUNDLE
+                <span>→</span>
+              </a>
 
-            </a>
+            </div>
 
-          </div>
+          </article>
 
-        </article>
+        {% endfor %}
 
-      {% endfor %}
+      </div>
 
-    </div>
-
-
-    <div
-      class="swipecue"
-      aria-hidden="true"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+      <button
+        class="pl-bundles__arrow pl-bundles__arrow--right"
+        type="button"
+        aria-label="Next bundle"
       >
-        <path d="M5 12h13m-5-6 6 6-6 6"/>
-      </svg>
+        →
+      </button>
 
-      Swipe for more combos
     </div>
 
 
-    <p class="railnote">
-      {{ section.settings.note }}
-    </p>
+    <!-- SLIDER FOOTER -->
+    <div class="pl-bundles__footer">
+
+      <span class="pl-bundles__swipe">
+        <span>→</span>
+        SWIPE FOR MORE COMBOS
+      </span>
+
+      <p>
+        {{ section.settings.note }}
+      </p>
+
+    </div>
 
   </div>
 
 </section>
 
 
+<script>
+(function () {
+
+  const slider = document.querySelector('[data-bundle-slider]');
+
+  if (!slider) return;
+
+  const cards = slider.querySelectorAll('[data-bundle-card]');
+
+  const leftButton = document.querySelector(
+    '.pl-bundles__arrow--left'
+  );
+
+  const rightButton = document.querySelector(
+    '.pl-bundles__arrow--right'
+  );
+
+
+  /*
+   * CENTER ACTIVE CARD
+   */
+  function updateActiveCard() {
+
+    const sliderRect = slider.getBoundingClientRect();
+
+    const center =
+      sliderRect.left +
+      sliderRect.width / 2;
+
+    let closestCard = null;
+    let closestDistance = Infinity;
+
+    cards.forEach(function (card) {
+
+      const rect = card.getBoundingClientRect();
+
+      const cardCenter =
+        rect.left +
+        rect.width / 2;
+
+      const distance =
+        Math.abs(center - cardCenter);
+
+      if (distance < closestDistance) {
+
+        closestDistance = distance;
+        closestCard = card;
+
+      }
+
+    });
+
+    cards.forEach(function (card) {
+      card.classList.remove('is-active');
+    });
+
+    if (closestCard) {
+      closestCard.classList.add('is-active');
+    }
+
+  }
+
+
+  /*
+   * SCROLL TO CARD
+   */
+  function scrollToCard(direction) {
+
+    const current =
+      slider.querySelector('.is-active') ||
+      cards[0];
+
+    let index =
+      Array.from(cards).indexOf(current);
+
+    index += direction;
+
+    if (index < 0) {
+      index = cards.length - 1;
+    }
+
+    if (index >= cards.length) {
+      index = 0;
+    }
+
+    cards[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+
+  }
+
+
+  /*
+   * ARROWS
+   */
+  if (leftButton) {
+
+    leftButton.addEventListener('click', function () {
+      scrollToCard(-1);
+    });
+
+  }
+
+  if (rightButton) {
+
+    rightButton.addEventListener('click', function () {
+      scrollToCard(1);
+    });
+
+  }
+
+
+  /*
+   * UPDATE ACTIVE CARD
+   */
+  slider.addEventListener('scroll', function () {
+
+    window.requestAnimationFrame(
+      updateActiveCard
+    );
+
+  });
+
+
+  /*
+   * MOUSE DRAG
+   */
+  let isDragging = false;
+  let startX = 0;
+  let startScroll = 0;
+
+  slider.addEventListener(
+    'mousedown',
+    function (event) {
+
+      isDragging = true;
+
+      slider.classList.add('is-dragging');
+
+      startX = event.pageX;
+
+      startScroll = slider.scrollLeft;
+
+    }
+  );
+
+
+  slider.addEventListener(
+    'mousemove',
+    function (event) {
+
+      if (!isDragging) return;
+
+      event.preventDefault();
+
+      const distance =
+        event.pageX - startX;
+
+      slider.scrollLeft =
+        startScroll - distance;
+
+    }
+  );
+
+
+  function stopDragging() {
+
+    isDragging = false;
+
+    slider.classList.remove(
+      'is-dragging'
+    );
+
+  }
+
+  slider.addEventListener(
+    'mouseup',
+    stopDragging
+  );
+
+  slider.addEventListener(
+    'mouseleave',
+    stopDragging
+  );
+
+
+  /*
+   * TOUCH SWIPE
+   */
+  let touchStartX = 0;
+  let touchStartScroll = 0;
+
+  slider.addEventListener(
+    'touchstart',
+    function (event) {
+
+      touchStartX =
+        event.touches[0].clientX;
+
+      touchStartScroll =
+        slider.scrollLeft;
+
+    },
+    { passive: true }
+  );
+
+
+  slider.addEventListener(
+    'touchmove',
+    function (event) {
+
+      const currentX =
+        event.touches[0].clientX;
+
+      const distance =
+        currentX - touchStartX;
+
+      slider.scrollLeft =
+        touchStartScroll - distance;
+
+    },
+    { passive: true }
+  );
+
+
+  /*
+   * INITIAL ACTIVE CARD
+   */
+  setTimeout(
+    updateActiveCard,
+    100
+  );
+
+})();
+</script>
+
+
 {% schema %}
+
 {
-  "name": "Best-selling Combos",
-  "max_blocks": 8,
+  "name": "Bundles",
+
   "settings": [
+
     {
       "type": "text",
       "id": "kicker",
       "label": "Kicker",
-      "default": "Pre-built to save you money"
+      "default": "Build your bundle"
     },
+
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Best selling combos"
+      "default": "One box. Every room."
     },
+
     {
       "type": "textarea",
       "id": "description",
       "label": "Description",
-      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+      "default": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
     },
+
     {
       "type": "textarea",
       "id": "note",
       "label": "Bottom note",
       "default": "Tapping Shop bundle opens the bundle picker with these products already added. You can still swap anything before you pay."
     }
+
   ],
+
   "blocks": [
+
     {
-      "type": "combo",
-      "name": "Combo",
+      "type": "bundle",
+
+      "name": "Bundle",
+
       "settings": [
+
+        {
+          "type": "text",
+          "id": "saving",
+          "label": "Saving badge",
+          "default": "YOU SAVE ₹448"
+        },
+
+        {
+          "type": "text",
+          "id": "best_value",
+          "label": "Best value badge",
+          "default": ""
+        },
+
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
-          "default": "Kitchen essentials"
+          "label": "Bundle title",
+          "default": "LAUNDRY CARE BUNDLE"
         },
+
         {
           "type": "text",
           "id": "product_count",
           "label": "Product count",
-          "default": "3 products"
+          "default": "3 PRODUCTS"
         },
-        {
-          "type": "product",
-          "id": "product_1",
-          "label": "Product 1"
-        },
-        {
-          "type": "text",
-          "id": "product_1_text",
-          "label": "Product 1 text",
-          "default": "Cuts grease instantly"
-        },
-        {
-          "type": "product",
-          "id": "product_2",
-          "label": "Product 2"
-        },
-        {
-          "type": "text",
-          "id": "product_2_text",
-          "label": "Product 2 text",
-          "default": "Squeaky clean dishes"
-        },
-        {
-          "type": "product",
-          "id": "product_3",
-          "label": "Product 3"
-        },
-        {
-          "type": "text",
-          "id": "product_3_text",
-          "label": "Product 3 text",
-          "default": "Melts hard water stains"
-        },
+
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
-          "default": "Includes three Purelane products for a complete clean."
+          "label": "Description"
         },
+
         {
           "type": "text",
           "id": "price",
-          "label": "Bundle price",
+          "label": "Price",
           "default": "₹499"
         },
+
         {
           "type": "text",
-          "id": "compare_price",
-          "label": "Compare price",
-          "default": "₹897"
+          "id": "original_price",
+          "label": "Original price",
+          "default": "₹947"
         },
+
         {
           "type": "text",
-          "id": "saving",
-          "label": "Saving",
-          "default": "Save ₹398"
+          "id": "save",
+          "label": "Save amount",
+          "default": "SAVE ₹448"
         },
-        {
-          "type": "text",
-          "id": "flag",
-          "label": "Flag",
-          "default": "Most popular"
-        },
-        {
-          "type": "checkbox",
-          "id": "featured",
-          "label": "Featured combo",
-          "default": false
-        },
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Button text",
-          "default": "Shop bundle"
-        },
+
         {
           "type": "url",
           "id": "link",
-          "label": "Button link"
+          "label": "Bundle link"
+        },
+
+
+        {
+          "type": "image_picker",
+          "id": "product_1_image",
+          "label": "Product 1 image"
+        },
+
+        {
+          "type": "text",
+          "id": "product_1_name",
+          "label": "Product 1 name"
+        },
+
+        {
+          "type": "text",
+          "id": "product_1_benefit",
+          "label": "Product 1 benefit"
+        },
+
+
+        {
+          "type": "image_picker",
+          "id": "product_2_image",
+          "label": "Product 2 image"
+        },
+
+        {
+          "type": "text",
+          "id": "product_2_name",
+          "label": "Product 2 name"
+        },
+
+        {
+          "type": "text",
+          "id": "product_2_benefit",
+          "label": "Product 2 benefit"
+        },
+
+
+        {
+          "type": "image_picker",
+          "id": "product_3_image",
+          "label": "Product 3 image"
+        },
+
+        {
+          "type": "text",
+          "id": "product_3_name",
+          "label": "Product 3 name"
+        },
+
+        {
+          "type": "text",
+          "id": "product_3_benefit",
+          "label": "Product 3 benefit"
         }
+
       ]
+
     }
+
   ],
+
   "presets": [
     {
-      "name": "Best-selling Combos",
+      "name": "Bundles",
+
       "blocks": [
         {
-          "type": "combo"
+          "type": "bundle"
         },
         {
-          "type": "combo"
+          "type": "bundle"
         },
         {
-          "type": "combo"
+          "type": "bundle"
+        },
+        {
+          "type": "bundle"
         }
       ]
     }
   ]
+
 }
+
 {% endschema %}
