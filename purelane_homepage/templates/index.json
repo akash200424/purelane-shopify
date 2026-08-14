@@ -39,15 +39,21 @@
         },
         "slide_1": {
           "type": "hero_slide",
-          "settings": { "label": "Single bottle" }
+          "settings": {
+            "label": "Single bottle"
+          }
         },
         "slide_2": {
           "type": "hero_slide",
-          "settings": { "label": "Any 2 products" }
+          "settings": {
+            "label": "Any 2 products"
+          }
         },
         "slide_3": {
           "type": "hero_slide",
-          "settings": { "label": "Any 3 products" }
+          "settings": {
+            "label": "Any 3 products"
+          }
         }
       },
       "block_order": [
@@ -123,10 +129,12 @@
         "review_5"
       ]
     },
+
     "ingrediants": {
       "type": "ingrediants",
       "settings": {}
     },
+
     "how_it_works": {
       "type": "how-it-works",
       "settings": {}
@@ -158,6 +166,11 @@
         "heading": "Loved by 30,000 homes",
         "products_to_show": 8
       }
+    },
+
+    "bundle_categories": {
+      "type": "bundle-categories",
+      "settings": {}
     }
   },
 
@@ -168,6 +181,7 @@
     "how_it_works",
     "combos",
     "bundles",
-    "shop"
+    "shop",
+    "bundle_categories"
   ]
 }
