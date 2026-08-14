@@ -1,0 +1,11 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "purelane_footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["purelane_footer"]
+}

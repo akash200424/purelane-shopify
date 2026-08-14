@@ -1,0 +1,323 @@
+<footer class="pl-footer">
+
+  <div class="pl-footer-container">
+
+    <div class="pl-footer-main">
+
+      <!-- BRAND -->
+      <div class="pl-footer-brand">
+
+        <div class="pl-footer-logo">
+
+          {% if section.settings.logo != blank %}
+
+            <img
+              src="{{ section.settings.logo | image_url: width: 220 }}"
+              alt="{{ shop.name | escape }}"
+              loading="lazy"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+            >
+
+          {% else %}
+
+            <div class="pl-footer-logo-mark">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </div>
+
+            <div class="pl-footer-wordmark">
+              <strong>
+                {{ section.settings.brand_name }}
+              </strong>
+
+              <span>
+                {{ section.settings.brand_tagline }}
+              </span>
+            </div>
+
+          {% endif %}
+
+        </div>
+
+
+        {% if section.settings.brand_description != blank %}
+          <p class="pl-footer-description">
+            {{ section.settings.brand_description }}
+          </p>
+        {% endif %}
+
+      </div>
+
+
+      <!-- SHOP -->
+      <div class="pl-footer-column">
+
+        <h3>
+          {{ section.settings.shop_heading }}
+        </h3>
+
+        {% if section.settings.shop_menu != blank %}
+
+          <ul>
+
+            {% for link in section.settings.shop_menu.links %}
+
+              <li>
+                <a href="{{ link.url }}">
+                  {{ link.title }}
+                </a>
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% endif %}
+
+      </div>
+
+
+      <!-- ABOUT -->
+      <div class="pl-footer-column">
+
+        <h3>
+          {{ section.settings.about_heading }}
+        </h3>
+
+        {% if section.settings.about_menu != blank %}
+
+          <ul>
+
+            {% for link in section.settings.about_menu.links %}
+
+              <li>
+                <a href="{{ link.url }}">
+                  {{ link.title }}
+                </a>
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% endif %}
+
+      </div>
+
+
+      <!-- CONTACT -->
+      <div class="pl-footer-column pl-footer-contact">
+
+        <h3>
+          {{ section.settings.contact_heading }}
+        </h3>
+
+
+        {% if section.settings.email != blank %}
+
+          <a
+            href="mailto:{{ section.settings.email | escape }}"
+            class="pl-footer-contact-link"
+          >
+            {{ section.settings.email }}
+          </a>
+
+        {% endif %}
+
+
+        {% if section.settings.phone != blank %}
+
+          <a
+            href="tel:{{ section.settings.phone | remove: ' ' | escape }}"
+            class="pl-footer-contact-link"
+          >
+            {{ section.settings.phone }}
+          </a>
+
+        {% endif %}
+
+
+        {% if section.settings.company_name != blank %}
+
+          <p class="pl-footer-company">
+            {{ section.settings.company_name }}
+          </p>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+
+    <!-- BOTTOM -->
+    <div class="pl-footer-bottom">
+
+      <p class="pl-footer-copyright">
+
+        {% if section.settings.copyright_text != blank %}
+
+          {{ section.settings.copyright_text }}
+
+        {% else %}
+
+          © {{ 'now' | date: '%Y' }} {{ shop.name }}
+
+        {% endif %}
+
+      </p>
+
+
+      <div class="pl-footer-legal">
+
+        {% if section.settings.legal_menu != blank %}
+
+          {% for link in section.settings.legal_menu.links %}
+
+            <a href="{{ link.url }}">
+              {{ link.title }}
+            </a>
+
+            {% unless forloop.last %}
+              <span>·</span>
+            {% endunless %}
+
+          {% endfor %}
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+{% schema %}
+{
+  "name": "Purelane Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "PURELANE"
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "label": "Brand tagline",
+      "default": "CLEAN, SIMPLY"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand description",
+      "default": "Effective cleaning, powered by nature. Made for Indian homes since day one."
+    },
+
+    {
+      "type": "header",
+      "content": "Shop navigation"
+    },
+    {
+      "type": "text",
+      "id": "shop_heading",
+      "label": "Shop heading",
+      "default": "SHOP"
+    },
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Shop menu"
+    },
+
+    {
+      "type": "header",
+      "content": "About navigation"
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "About heading",
+      "default": "ABOUT"
+    },
+    {
+      "type": "link_list",
+      "id": "about_menu",
+      "label": "About menu"
+    },
+
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "GET IN TOUCH"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company name"
+    },
+
+    {
+      "type": "header",
+      "content": "Footer bottom"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2026 Purelane Eco Products Private Limited"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Footer"
+    }
+  ]
+}
+{% endschema %}
