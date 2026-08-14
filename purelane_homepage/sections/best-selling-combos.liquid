@@ -1,25 +1,41 @@
-<section class="pl-bundles" id="bundles">
-
-  <div class="pl-bundles__container">
+<section
+  id="combos"
+  class="combo-section"
+  data-combo-section
+>
+  <div class="combo-wrap">
 
     <!-- HEADER -->
-    <div class="pl-bundles__header">
+    <div class="combo-header">
 
-      <span class="pl-bundles__kicker">
+      <span class="combo-kicker">
         {{ section.settings.kicker }}
       </span>
 
-      <h2 class="pl-bundles__title">
+      <h2 class="combo-heading">
         {{ section.settings.heading }}
       </h2>
 
-      <div class="pl-bundles__divider">
+      <div class="combo-rule">
         <span></span>
-        <span class="pl-bundles__leaf">⌄</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+        </svg>
+
         <span></span>
       </div>
 
-      <p class="pl-bundles__description">
+      <p class="combo-description">
         {{ section.settings.description }}
       </p>
 
@@ -27,626 +43,638 @@
 
 
     <!-- SLIDER -->
-    <div class="pl-bundles__slider-wrapper">
+    <div
+      class="combo-slider"
+      data-combo-slider
+      tabindex="0"
+      aria-label="Best selling combos"
+    >
 
-      <button
-        class="pl-bundles__arrow pl-bundles__arrow--left"
-        type="button"
-        aria-label="Previous bundle"
-      >
-        ←
-      </button>
+      <!-- CARD 1 -->
+      <article class="combo-card">
 
-      <div
-        class="pl-bundles__slider"
-        data-bundle-slider
-      >
+        <div class="combo-card-top">
 
-        {% for block in section.blocks %}
+          <span class="combo-save">
+            YOU SAVE ₹398
+          </span>
 
-          <article
-            class="pl-bundle-card{% if forloop.index == 2 %} is-featured{% endif %}"
-            data-bundle-card
-            {{ block.shopify_attributes }}
-          >
+          <span class="combo-popular">
+            MOST POPULAR
+          </span>
 
-            <!-- SAVING BADGE -->
-            <div class="pl-bundle-card__top">
+          <div class="combo-products">
 
-              <span class="pl-bundle-card__saving">
-                {{ block.settings.saving }}
-              </span>
-
-              {% if block.settings.best_value != blank %}
-                <span class="pl-bundle-card__value">
-                  {{ block.settings.best_value }}
-                </span>
-              {% endif %}
-
-            </div>
-
-
-            <!-- PRODUCTS -->
-            <div class="pl-bundle-card__products">
-
-              {% for i in (1..3) %}
-
-                {% assign image_key = 'product_' | append: i | append: '_image' %}
-                {% assign name_key = 'product_' | append: i | append: '_name' %}
-                {% assign benefit_key = 'product_' | append: i | append: '_benefit' %}
-
-                {% assign product_image = block.settings[image_key] %}
-                {% assign product_name = block.settings[name_key] %}
-                {% assign product_benefit = block.settings[benefit_key] %}
-
-                {% if product_name != blank %}
-
-                  <div class="pl-bundle-product">
-
-                    <div class="pl-bundle-product__image">
-
-                      {% if product_image != blank %}
-
-                        {{
-                          product_image
-                          | image_url: width: 180
-                          | image_tag:
-                            loading: 'lazy',
-                            alt: product_name
-                        }}
-
-                      {% else %}
-
-                        <div class="pl-bottle">
-                          <div class="pl-bottle__cap"></div>
-
-                          <div class="pl-bottle__body">
-                            <div class="pl-bottle__label">
-                              <span></span>
-                              <span></span>
-                            </div>
-                          </div>
-                        </div>
-
-                      {% endif %}
-
-                    </div>
-
-                    <div class="pl-bundle-product__benefit">
-                      {{ product_benefit }}
-                    </div>
-
-                  </div>
-
-                  {% unless i == 3 %}
-                    <span class="pl-bundle-product__plus">+</span>
-                  {% endunless %}
-
-                {% endif %}
-
-              {% endfor %}
-
-            </div>
-
-
-            <!-- CARD CONTENT -->
-            <div class="pl-bundle-card__content">
-
-              <h3 class="pl-bundle-card__title">
-                {{ block.settings.title }}
-              </h3>
-
-              <span class="pl-bundle-card__count">
-                {{ block.settings.product_count }}
-              </span>
-
-              <p class="pl-bundle-card__description">
-                {{ block.settings.description }}
-              </p>
-
-
-              <!-- PRICE -->
-              <div class="pl-bundle-card__pricing">
-
-                <strong>
-                  {{ block.settings.price }}
-                </strong>
-
-                {% if block.settings.original_price != blank %}
-                  <del>
-                    {{ block.settings.original_price }}
-                  </del>
-                {% endif %}
-
-                <span class="pl-bundle-card__save">
-                  {{ block.settings.save }}
-                </span>
-
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
               </div>
 
-
-              <p class="pl-bundle-card__tax">
-                Inclusive of all taxes · COD available
-              </p>
-
-
-              <!-- BUTTON -->
-              <a
-                href="{{ block.settings.link }}"
-                class="pl-bundle-card__button"
-              >
-                SHOP BUNDLE
-                <span>→</span>
-              </a>
-
+              <span>Cuts grease instantly</span>
             </div>
 
-          </article>
+            <span class="combo-plus">+</span>
 
-        {% endfor %}
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple small">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
 
-      </div>
+              <span>Squeaky clean dishes</span>
+            </div>
 
-      <button
-        class="pl-bundles__arrow pl-bundles__arrow--right"
-        type="button"
-        aria-label="Next bundle"
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Melts hard water stains</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="combo-card-body">
+
+          <h3>Kitchen Essentials</h3>
+
+          <div class="combo-count">
+            3 PRODUCTS
+          </div>
+
+          <p>
+            Includes: Foaming Kitchen Cleaner, Dishwash Gel &
+            Tap Cleaner. Everything for a sparkling kitchen,
+            no need to pick separately.
+          </p>
+
+          <div class="combo-price-row">
+            <strong>₹499</strong>
+            <s>₹897</s>
+            <em>SAVE ₹398</em>
+          </div>
+
+          <div class="combo-fine">
+            Inclusive of all taxes · COD available
+          </div>
+
+          <a
+            href="#bundles"
+            class="combo-button combo-button-light"
+          >
+            SHOP BUNDLE
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h13"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 2 -->
+      <article class="combo-card combo-card-featured">
+
+        <div class="combo-card-top">
+
+          <span class="combo-save">
+            BIGGEST SAVING
+          </span>
+
+          <span class="combo-best-value">
+            BEST VALUE
+          </span>
+
+          <div class="combo-products">
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Cuts grease instantly</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Kills 99.9% germs</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Gentle hydration for hands</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="combo-card-body">
+
+          <h3>Complete Home Bundle</h3>
+
+          <div class="combo-count">
+            5 PRODUCTS
+          </div>
+
+          <p>
+            Includes: Kitchen Cleaner, Laundry Detergent,
+            Floor Cleaner, Toilet Cleaner & Handwash.
+            Our biggest saving box.
+          </p>
+
+          <div class="combo-price-row">
+            <strong>₹799</strong>
+            <s>₹1,495</s>
+            <em>SAVE ₹696</em>
+          </div>
+
+          <div class="combo-fine">
+            Inclusive of all taxes · COD available
+          </div>
+
+          <a
+            href="#bundles"
+            class="combo-button combo-button-dark"
+          >
+            SHOP BUNDLE
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h13"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 3 -->
+      <article class="combo-card">
+
+        <div class="combo-card-top">
+
+          <span class="combo-save">
+            YOU SAVE ₹398
+          </span>
+
+          <div class="combo-products">
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Kills 99.9% germs</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Melts hard water stains</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-eraser">
+                <span></span>
+              </div>
+
+              <span>Scrubs away soap scum</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="combo-card-body">
+
+          <h3>Bathroom Deep Clean</h3>
+
+          <div class="combo-count">
+            3 PRODUCTS
+          </div>
+
+          <p>
+            Includes: Toilet Cleaner, Tap Cleaner &
+            Magic Eraser. A complete bathroom refresh
+            in one box.
+          </p>
+
+          <div class="combo-price-row">
+            <strong>₹499</strong>
+            <s>₹897</s>
+            <em>SAVE ₹398</em>
+          </div>
+
+          <div class="combo-fine">
+            Inclusive of all taxes · COD available
+          </div>
+
+          <a
+            href="#bundles"
+            class="combo-button combo-button-light"
+          >
+            SHOP BUNDLE
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h13"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 4 -->
+      <article class="combo-card">
+
+        <div class="combo-card-top">
+
+          <span class="combo-save">
+            YOU SAVE ₹249
+          </span>
+
+          <div class="combo-products combo-products-two">
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Melts hard water stains</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Fights limescale in the bowl</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="combo-card-body">
+
+          <h3>Hard Water Solution Kit</h3>
+
+          <div class="combo-count">
+            2 PRODUCTS
+          </div>
+
+          <p>
+            Includes: Tap Cleaner & Toilet Cleaner.
+            A quick, focused fix for hard water stains
+            across the home.
+          </p>
+
+          <div class="combo-price-row">
+            <strong>₹349</strong>
+            <s>₹598</s>
+            <em>SAVE ₹249</em>
+          </div>
+
+          <div class="combo-fine">
+            Inclusive of all taxes · COD available
+          </div>
+
+          <a
+            href="#bundles"
+            class="combo-button combo-button-light"
+          >
+            SHOP BUNDLE
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h13"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 5 -->
+      <article class="combo-card">
+
+        <div class="combo-card-top">
+
+          <span class="combo-save">
+            YOU SAVE ₹448
+          </span>
+
+          <div class="combo-products">
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Removes tough stains & odour</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-tile">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+                  <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+                </svg>
+              </div>
+
+              <span>Softens & freshens every wash</span>
+            </div>
+
+            <span class="combo-plus">+</span>
+
+            <div class="combo-product">
+              <div class="combo-bottle combo-bottle-purple small">
+                <span class="combo-pump"></span>
+                <span class="combo-label"></span>
+              </div>
+
+              <span>Deep-cleans your machine</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="combo-card-body">
+
+          <h3>Laundry Care Bundle</h3>
+
+          <div class="combo-count">
+            3 PRODUCTS
+          </div>
+
+          <p>
+            Includes: Laundry Detergent, Fabric Conditioner &
+            Machine Cleaner Powder. Softer, fresher wash,
+            all in one box.
+          </p>
+
+          <div class="combo-price-row">
+            <strong>₹499</strong>
+            <s>₹947</s>
+            <em>SAVE ₹448</em>
+          </div>
+
+          <div class="combo-fine">
+            Inclusive of all taxes · COD available
+          </div>
+
+          <a
+            href="#bundles"
+            class="combo-button combo-button-light"
+          >
+            SHOP BUNDLE
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h13"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+          </a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- SWIPE INDICATOR -->
+    <div class="combo-swipe-cue">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       >
-        →
-      </button>
+        <path d="M5 12h13"/>
+        <path d="m13 6 6 6-6 6"/>
+      </svg>
+
+      SWIPE FOR MORE COMBOS
 
     </div>
 
 
-    <!-- SLIDER FOOTER -->
-    <div class="pl-bundles__footer">
-
-      <span class="pl-bundles__swipe">
-        <span>→</span>
-        SWIPE FOR MORE COMBOS
-      </span>
-
-      <p>
-        {{ section.settings.note }}
-      </p>
-
-    </div>
+    <p class="combo-note">
+      {{ section.settings.note }}
+    </p>
 
   </div>
-
 </section>
 
 
 <script>
-(function () {
+  document.addEventListener('DOMContentLoaded', function () {
 
-  const slider = document.querySelector('[data-bundle-slider]');
+    const slider = document.querySelector('[data-combo-slider]');
 
-  if (!slider) return;
+    if (!slider) return;
 
-  const cards = slider.querySelectorAll('[data-bundle-card]');
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
 
-  const leftButton = document.querySelector(
-    '.pl-bundles__arrow--left'
-  );
-
-  const rightButton = document.querySelector(
-    '.pl-bundles__arrow--right'
-  );
-
-
-  /*
-   * CENTER ACTIVE CARD
-   */
-  function updateActiveCard() {
-
-    const sliderRect = slider.getBoundingClientRect();
-
-    const center =
-      sliderRect.left +
-      sliderRect.width / 2;
-
-    let closestCard = null;
-    let closestDistance = Infinity;
-
-    cards.forEach(function (card) {
-
-      const rect = card.getBoundingClientRect();
-
-      const cardCenter =
-        rect.left +
-        rect.width / 2;
-
-      const distance =
-        Math.abs(center - cardCenter);
-
-      if (distance < closestDistance) {
-
-        closestDistance = distance;
-        closestCard = card;
-
-      }
-
-    });
-
-    cards.forEach(function (card) {
-      card.classList.remove('is-active');
-    });
-
-    if (closestCard) {
-      closestCard.classList.add('is-active');
-    }
-
-  }
-
-
-  /*
-   * SCROLL TO CARD
-   */
-  function scrollToCard(direction) {
-
-    const current =
-      slider.querySelector('.is-active') ||
-      cards[0];
-
-    let index =
-      Array.from(cards).indexOf(current);
-
-    index += direction;
-
-    if (index < 0) {
-      index = cards.length - 1;
-    }
-
-    if (index >= cards.length) {
-      index = 0;
-    }
-
-    cards[index].scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center'
-    });
-
-  }
-
-
-  /*
-   * ARROWS
-   */
-  if (leftButton) {
-
-    leftButton.addEventListener('click', function () {
-      scrollToCard(-1);
-    });
-
-  }
-
-  if (rightButton) {
-
-    rightButton.addEventListener('click', function () {
-      scrollToCard(1);
-    });
-
-  }
-
-
-  /*
-   * UPDATE ACTIVE CARD
-   */
-  slider.addEventListener('scroll', function () {
-
-    window.requestAnimationFrame(
-      updateActiveCard
-    );
-
-  });
-
-
-  /*
-   * MOUSE DRAG
-   */
-  let isDragging = false;
-  let startX = 0;
-  let startScroll = 0;
-
-  slider.addEventListener(
-    'mousedown',
-    function (event) {
-
-      isDragging = true;
-
+    slider.addEventListener('mousedown', function (event) {
+      isDown = true;
       slider.classList.add('is-dragging');
 
-      startX = event.pageX;
+      startX = event.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
 
-      startScroll = slider.scrollLeft;
+    slider.addEventListener('mouseleave', function () {
+      isDown = false;
+      slider.classList.remove('is-dragging');
+    });
 
-    }
-  );
+    slider.addEventListener('mouseup', function () {
+      isDown = false;
+      slider.classList.remove('is-dragging');
+    });
 
+    slider.addEventListener('mousemove', function (event) {
 
-  slider.addEventListener(
-    'mousemove',
-    function (event) {
-
-      if (!isDragging) return;
+      if (!isDown) return;
 
       event.preventDefault();
 
-      const distance =
-        event.pageX - startX;
+      const x = event.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.4;
 
-      slider.scrollLeft =
-        startScroll - distance;
-
-    }
-  );
+      slider.scrollLeft = scrollLeft - walk;
+    });
 
 
-  function stopDragging() {
+    /* Mouse wheel → horizontal movement */
 
-    isDragging = false;
+    slider.addEventListener(
+      'wheel',
+      function (event) {
 
-    slider.classList.remove(
-      'is-dragging'
+        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+
+          event.preventDefault();
+
+          slider.scrollLeft += event.deltaY;
+        }
+
+      },
+      { passive: false }
     );
 
-  }
-
-  slider.addEventListener(
-    'mouseup',
-    stopDragging
-  );
-
-  slider.addEventListener(
-    'mouseleave',
-    stopDragging
-  );
-
-
-  /*
-   * TOUCH SWIPE
-   */
-  let touchStartX = 0;
-  let touchStartScroll = 0;
-
-  slider.addEventListener(
-    'touchstart',
-    function (event) {
-
-      touchStartX =
-        event.touches[0].clientX;
-
-      touchStartScroll =
-        slider.scrollLeft;
-
-    },
-    { passive: true }
-  );
-
-
-  slider.addEventListener(
-    'touchmove',
-    function (event) {
-
-      const currentX =
-        event.touches[0].clientX;
-
-      const distance =
-        currentX - touchStartX;
-
-      slider.scrollLeft =
-        touchStartScroll - distance;
-
-    },
-    { passive: true }
-  );
-
-
-  /*
-   * INITIAL ACTIVE CARD
-   */
-  setTimeout(
-    updateActiveCard,
-    100
-  );
-
-})();
+  });
 </script>
 
 
 {% schema %}
-
 {
-  "name": "Bundles",
-
+  "name": "Best Selling Combos",
   "settings": [
-
     {
       "type": "text",
       "id": "kicker",
       "label": "Kicker",
-      "default": "Build your bundle"
+      "default": "Pre-built to save you money"
     },
-
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "One box. Every room."
+      "default": "Best selling combos"
     },
-
     {
       "type": "textarea",
       "id": "description",
       "label": "Description",
-      "default": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
     },
-
     {
       "type": "textarea",
       "id": "note",
       "label": "Bottom note",
       "default": "Tapping Shop bundle opens the bundle picker with these products already added. You can still swap anything before you pay."
     }
-
   ],
-
   "blocks": [
-
     {
       "type": "bundle",
-
       "name": "Bundle",
-
       "settings": [
-
-        {
-          "type": "text",
-          "id": "saving",
-          "label": "Saving badge",
-          "default": "YOU SAVE ₹448"
-        },
-
         {
           "type": "text",
           "id": "best_value",
-          "label": "Best value badge",
-          "default": ""
+          "label": "Best value",
+          "default": "BEST VALUE"
         },
-
         {
           "type": "text",
           "id": "title",
-          "label": "Bundle title",
-          "default": "LAUNDRY CARE BUNDLE"
+          "label": "Title",
+          "default": "Complete Home Bundle"
         },
-
-        {
-          "type": "text",
-          "id": "product_count",
-          "label": "Product count",
-          "default": "3 PRODUCTS"
-        },
-
-        {
-          "type": "textarea",
-          "id": "description",
-          "label": "Description"
-        },
-
         {
           "type": "text",
           "id": "price",
           "label": "Price",
-          "default": "₹499"
-        },
-
-        {
-          "type": "text",
-          "id": "original_price",
-          "label": "Original price",
-          "default": "₹947"
-        },
-
-        {
-          "type": "text",
-          "id": "save",
-          "label": "Save amount",
-          "default": "SAVE ₹448"
-        },
-
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Bundle link"
-        },
-
-
-        {
-          "type": "image_picker",
-          "id": "product_1_image",
-          "label": "Product 1 image"
-        },
-
-        {
-          "type": "text",
-          "id": "product_1_name",
-          "label": "Product 1 name"
-        },
-
-        {
-          "type": "text",
-          "id": "product_1_benefit",
-          "label": "Product 1 benefit"
-        },
-
-
-        {
-          "type": "image_picker",
-          "id": "product_2_image",
-          "label": "Product 2 image"
-        },
-
-        {
-          "type": "text",
-          "id": "product_2_name",
-          "label": "Product 2 name"
-        },
-
-        {
-          "type": "text",
-          "id": "product_2_benefit",
-          "label": "Product 2 benefit"
-        },
-
-
-        {
-          "type": "image_picker",
-          "id": "product_3_image",
-          "label": "Product 3 image"
-        },
-
-        {
-          "type": "text",
-          "id": "product_3_name",
-          "label": "Product 3 name"
-        },
-
-        {
-          "type": "text",
-          "id": "product_3_benefit",
-          "label": "Product 3 benefit"
+          "default": "₹799"
         }
-
       ]
-
     }
-
   ],
-
   "presets": [
     {
-      "name": "Bundles",
-
-      "blocks": [
-        {
-          "type": "bundle"
-        },
-        {
-          "type": "bundle"
-        },
-        {
-          "type": "bundle"
-        },
-        {
-          "type": "bundle"
-        }
-      ]
+      "name": "Best Selling Combos"
     }
   ]
-
 }
-
 {% endschema %}
