@@ -8,256 +8,464 @@
 
     <div class="revhead rv">
 
-      <span class="kicker">
-        {{ section.settings.kicker }}
-      </span>
+      {% if section.settings.kicker != blank %}
+        <span class="kicker">
+          {{ section.settings.kicker }}
+        </span>
+      {% endif %}
 
-      <span class="agg">
 
-        <span class="st">
-          ★★★★★
+      {% if section.settings.rating != blank or section.settings.rating_text != blank %}
+
+        <span class="agg">
+
+          {% if section.settings.show_stars %}
+            <span
+              class="st"
+              aria-label="{{ section.settings.rating }} out of 5 stars"
+            >
+              ★★★★★
+            </span>
+          {% endif %}
+
+          {% if section.settings.rating != blank %}
+            <b>
+              {{ section.settings.rating }}
+            </b>
+          {% endif %}
+
+          {% if section.settings.rating_text != blank %}
+            {{ section.settings.rating_text }}
+          {% endif %}
+
         </span>
 
-        <b>
-          {{ section.settings.rating }}
-        </b>
-
-        {{ section.settings.rating_text }}
-
-      </span>
-
-      <span class="agg">
-        Loved by
-        <b>
-          {{ section.settings.homes }}
-        </b>
-        homes
-      </span>
-
-    </div>
-
-  </div>
+      {% endif %}
 
 
-  <div
-    class="revrail rv"
-    aria-label="Customer reviews"
-  >
+      {% if section.settings.homes != blank %}
 
-    <div class="revtrack">
+        <span class="agg">
 
-      {% for block in section.blocks %}
+          {% if section.settings.homes_prefix != blank %}
+            {{ section.settings.homes_prefix }}
+          {% endif %}
 
-        <article
-          class="glass-2 rcard"
-          {{ block.shopify_attributes }}
-        >
+          <b>
+            {{ section.settings.homes }}
+          </b>
 
-          <div class="st">
-            ★★★★★
-          </div>
+          {% if section.settings.homes_suffix != blank %}
+            {{ section.settings.homes_suffix }}
+          {% endif %}
 
-          <h5>
-            {{ block.settings.title }}
-          </h5>
+        </span>
 
-          <p>
-            {{ block.settings.review }}
-          </p>
-
-          <div class="who">
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m5 13 4 4L19 7"/>
-            </svg>
-
-            <b>
-              {{ block.settings.name }}
-            </b>
-
-            {% if block.settings.product != blank %}
-              <span>
-                · {{ block.settings.product }}
-              </span>
-            {% endif %}
-
-          </div>
-
-        </article>
-
-      {% endfor %}
-
-
-      {% for block in section.blocks %}
-
-        <article
-          class="glass-2 rcard"
-          aria-hidden="true"
-        >
-
-          <div class="st">
-            ★★★★★
-          </div>
-
-          <h5>
-            {{ block.settings.title }}
-          </h5>
-
-          <p>
-            {{ block.settings.review }}
-          </p>
-
-          <div class="who">
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="m5 13 4 4L19 7"/>
-            </svg>
-
-            <b>
-              {{ block.settings.name }}
-            </b>
-
-            {% if block.settings.product != blank %}
-              <span>
-                · {{ block.settings.product }}
-              </span>
-            {% endif %}
-
-          </div>
-
-        </article>
-
-      {% endfor %}
+      {% endif %}
 
     </div>
 
   </div>
+
+
+  {% if section.blocks.size > 0 %}
+
+    <div
+      class="revrail rv"
+      aria-label="{{ section.settings.rail_aria_label | escape }}"
+    >
+
+      <div class="revtrack">
+
+
+        <!-- =================================================
+             ORIGINAL REVIEWS
+        ================================================== -->
+
+        {% for block in section.blocks %}
+
+          <article
+            class="glass-2 rcard"
+            {{ block.shopify_attributes }}
+          >
+
+            {% if section.settings.show_review_stars %}
+
+              <div
+                class="st"
+                aria-label="{{ block.settings.rating }} out of 5 stars"
+              >
+                ★★★★★
+              </div>
+
+            {% endif %}
+
+
+            {% if block.settings.title != blank %}
+
+              <h5>
+                {{ block.settings.title }}
+              </h5>
+
+            {% endif %}
+
+
+            {% if block.settings.review != blank %}
+
+              <p>
+                {{ block.settings.review }}
+              </p>
+
+            {% endif %}
+
+
+            <div class="who">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m5 13 4 4L19 7"/>
+              </svg>
+
+
+              {% if block.settings.name != blank %}
+
+                <b>
+                  {{ block.settings.name }}
+                </b>
+
+              {% endif %}
+
+
+              {% if block.settings.product != blank %}
+
+                <span>
+                  · {{ block.settings.product }}
+                </span>
+
+              {% endif %}
+
+            </div>
+
+          </article>
+
+        {% endfor %}
+
+
+
+        <!-- =================================================
+             DUPLICATE REVIEWS
+             
+             This duplicate set is intentional.
+             It allows the CSS/JS rail animation to loop
+             continuously without a visible gap.
+        ================================================== -->
+
+        {% for block in section.blocks %}
+
+          <article
+            class="glass-2 rcard"
+            aria-hidden="true"
+          >
+
+            {% if section.settings.show_review_stars %}
+
+              <div class="st">
+                ★★★★★
+              </div>
+
+            {% endif %}
+
+
+            {% if block.settings.title != blank %}
+
+              <h5>
+                {{ block.settings.title }}
+              </h5>
+
+            {% endif %}
+
+
+            {% if block.settings.review != blank %}
+
+              <p>
+                {{ block.settings.review }}
+              </p>
+
+            {% endif %}
+
+
+            <div class="who">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m5 13 4 4L19 7"/>
+              </svg>
+
+
+              {% if block.settings.name != blank %}
+
+                <b>
+                  {{ block.settings.name }}
+                </b>
+
+              {% endif %}
+
+
+              {% if block.settings.product != blank %}
+
+                <span>
+                  · {{ block.settings.product }}
+                </span>
+
+              {% endif %}
+
+            </div>
+
+          </article>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  {% endif %}
 
 </section>
 
 
 {% schema %}
+
 {
   "name": "Purelane Reviews Rail",
+
   "max_blocks": 12,
+
   "settings": [
+
+    {
+      "type": "header",
+      "content": "Review summary"
+    },
+
     {
       "type": "text",
       "id": "kicker",
       "label": "Kicker",
       "default": "That's what they said"
     },
+
     {
       "type": "text",
       "id": "rating",
-      "label": "Rating",
+      "label": "Overall rating",
       "default": "4.8"
     },
+
     {
       "type": "text",
       "id": "rating_text",
-      "label": "Rating text",
+      "label": "Rating description",
       "default": "from 8,000+ reviews"
     },
+
+    {
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "Show summary stars",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "homes_prefix",
+      "label": "Homes prefix",
+      "default": "Loved by"
+    },
+
     {
       "type": "text",
       "id": "homes",
-      "label": "Homes",
+      "label": "Homes count",
       "default": "12 lakh+"
+    },
+
+    {
+      "type": "text",
+      "id": "homes_suffix",
+      "label": "Homes suffix",
+      "default": "homes"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Review cards"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_review_stars",
+      "label": "Show review stars",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "rail_aria_label",
+      "label": "Reviews rail accessibility label",
+      "default": "Customer reviews"
     }
+
   ],
+
+
   "blocks": [
+
     {
       "type": "review",
+
       "name": "Review",
+
       "settings": [
+
         {
           "type": "text",
           "id": "title",
           "label": "Review title",
           "default": "Works like a charm"
         },
+
         {
           "type": "textarea",
           "id": "review",
           "label": "Review",
           "default": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better."
         },
+
         {
           "type": "text",
           "id": "name",
           "label": "Customer name",
           "default": "Anita"
         },
+
         {
           "type": "text",
           "id": "product",
           "label": "Product",
           "default": "Laundry detergent"
+        },
+
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
         }
+
       ]
+
     }
+
   ],
+
+
   "presets": [
+
     {
       "name": "Purelane Reviews Rail",
+
       "blocks": [
-        {
-          "type": "review"
-        },
+
         {
           "type": "review",
+
+          "settings": {
+            "title": "Works like a charm",
+            "review": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "name": "Anita",
+            "product": "Laundry detergent",
+            "rating": 5
+          }
+
+        },
+
+        {
+          "type": "review",
+
           "settings": {
             "title": "Best dishwash ever",
             "review": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
             "name": "Priya",
-            "product": "Dishwash gel"
+            "product": "Dishwash gel",
+            "rating": 5
           }
+
         },
+
         {
           "type": "review",
+
           "settings": {
             "title": "Great product, great packaging",
             "review": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
             "name": "Sunita",
-            "product": "Liquid handwash"
+            "product": "Liquid handwash",
+            "rating": 5
           }
+
         },
+
         {
           "type": "review",
+
           "settings": {
             "title": "Dog friendly",
             "review": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
             "name": "Rohit S.",
-            "product": "Floor cleaner"
+            "product": "Floor cleaner",
+            "rating": 5
           }
+
         },
+
         {
           "type": "review",
+
           "settings": {
             "title": "Sparkling taps again",
             "review": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
             "name": "Verified buyer",
-            "product": "Tap cleaner"
+            "product": "Tap cleaner",
+            "rating": 5
           }
+
         }
+
       ]
+
     }
+
   ]
+
 }
+
 {% endschema %}

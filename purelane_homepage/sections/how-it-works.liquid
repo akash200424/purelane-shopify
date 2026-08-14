@@ -1,136 +1,239 @@
-<section class="purelane-how">
+<section
+  class="purelane-how"
+  id="how-it-works"
+>
 
   <div class="purelane-how__inner">
 
-    <!-- LEFT CONTENT -->
+    <!-- =========================
+         LEFT CONTENT
+    ========================== -->
+
     <div class="purelane-how__content">
 
-      <span class="purelane-how__kicker">
-        WHY IT WORKS
-      </span>
+      {% if section.settings.kicker != blank %}
+        <span class="purelane-how__kicker">
+          {{ section.settings.kicker }}
+        </span>
+      {% endif %}
 
-      <h2 class="purelane-how__heading">
-        TOUGH ON GRIME.<br>
-        GENTLE ON<br>
-        EVERYTHING ELSE.
-      </h2>
 
-      <p class="purelane-how__description">
-        Every formula is built on plant-derived cleansers and
-        essential oils. It behaves exactly like the cleaner you
-        are used to, minus the things you never signed up for.
-      </p>
+      {% if section.settings.heading != blank %}
+        <h2 class="purelane-how__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
 
-      <a
-        href="/pages/ingredients"
-        class="purelane-how__button"
-      >
-        SEE THE INGREDIENT LIST
-        <span>→</span>
-      </a>
+
+      {% if section.settings.description != blank %}
+        <p class="purelane-how__description">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+
+
+      {% if section.settings.button_text != blank
+        and section.settings.button_link != blank %}
+
+        <a
+          href="{{ section.settings.button_link }}"
+          class="purelane-how__button"
+        >
+          {{ section.settings.button_text }}
+          <span aria-hidden="true">→</span>
+        </a>
+
+      {% endif %}
 
     </div>
 
 
-    <!-- RIGHT PRODUCT CARD -->
+    <!-- =========================
+         PRODUCT CARD
+    ========================== -->
+
     <div class="purelane-how__product">
+
+      {% assign selected_product = section.settings.product %}
 
       <div class="purelane-how__bottle">
 
-        <div class="purelane-bottle">
-          <div class="purelane-bottle__cap"></div>
+        {% if selected_product != blank %}
 
-          <div class="purelane-bottle__body">
+          {% if selected_product.featured_image != blank %}
 
-            <div class="purelane-bottle__label">
-              <span></span>
-              <span></span>
+            {{
+              selected_product.featured_image
+              | image_url: width: 700
+              | image_tag:
+                loading: 'lazy',
+                class: 'purelane-how__product-image',
+                alt: selected_product.title
+            }}
+
+          {% else %}
+
+            <!--
+              Fallback visual when the selected Shopify product
+              does not have an image.
+            -->
+
+            <div class="purelane-bottle" aria-hidden="true">
+
+              <div class="purelane-bottle__cap"></div>
+
+              <div class="purelane-bottle__body">
+
+                <div class="purelane-bottle__label">
+                  <span></span>
+                  <span></span>
+                </div>
+
+              </div>
+
+            </div>
+
+          {% endif %}
+
+        {% elsif section.settings.product_image != blank %}
+
+          {{
+            section.settings.product_image
+            | image_url: width: 700
+            | image_tag:
+              loading: 'lazy',
+              class: 'purelane-how__product-image',
+              alt: section.settings.product_alt
+          }}
+
+        {% else %}
+
+          <div class="purelane-bottle" aria-hidden="true">
+
+            <div class="purelane-bottle__cap"></div>
+
+            <div class="purelane-bottle__body">
+
+              <div class="purelane-bottle__label">
+                <span></span>
+                <span></span>
+              </div>
+
             </div>
 
           </div>
+
+        {% endif %}
+
+      </div>
+
+
+      {% if selected_product != blank %}
+
+        <h3>
+          {{ selected_product.title }}
+        </h3>
+
+        {% if section.settings.product_subtitle != blank %}
+          <p>
+            {{ section.settings.product_subtitle }}
+          </p>
+        {% endif %}
+
+      {% else %}
+
+        {% if section.settings.product_title != blank %}
+          <h3>
+            {{ section.settings.product_title }}
+          </h3>
+        {% endif %}
+
+        {% if section.settings.product_subtitle != blank %}
+          <p>
+            {{ section.settings.product_subtitle }}
+          </p>
+        {% endif %}
+
+      {% endif %}
+
+
+      {% if section.settings.show_product_dots %}
+
+        <div
+          class="purelane-how__dots"
+          aria-hidden="true"
+        >
+
+          {% for block in section.blocks %}
+
+            {% if block.type == 'product_slide' %}
+
+              <i
+                class="{% if forloop.first %}active{% endif %}"
+                {{ block.shopify_attributes }}
+              ></i>
+
+            {% endif %}
+
+          {% endfor %}
+
         </div>
 
-      </div>
-
-      <h3>TOILET CLEANER</h3>
-
-      <p>Kills 99.9% of germs</p>
-
-      <div class="purelane-how__dots">
-        <i></i>
-        <i></i>
-        <i></i>
-        <i class="active"></i>
-        <i></i>
-        <i></i>
-      </div>
+      {% endif %}
 
     </div>
 
 
-    <!-- STATISTICS -->
-    <div class="purelane-how__stats">
+    <!-- =========================
+         STATISTICS
+    ========================== -->
 
-      <div class="purelane-how__stat">
+    {% assign stat_blocks = section.blocks | where: 'type', 'stat' %}
 
-        <div class="purelane-how__circle">
-          99.9%
-        </div>
+    {% if stat_blocks.size > 0 %}
 
-        <strong>GERM KILL</strong>
+      <div class="purelane-how__stats">
 
-        <p>
-          Tested against germs and bacteria
-        </p>
+        {% for block in stat_blocks %}
 
-      </div>
+          <div
+            class="purelane-how__stat"
+            {{ block.shopify_attributes }}
+          >
 
+            {% if block.settings.value != blank %}
 
-      <div class="purelane-how__stat">
+              <div class="purelane-how__circle">
+                {{ block.settings.value }}
+              </div>
 
-        <div class="purelane-how__circle">
-          0%
-        </div>
-
-        <strong>SULPHATES</strong>
-
-        <p>
-          No SLS, chlorine or parabens
-        </p>
-
-      </div>
+            {% endif %}
 
 
-      <div class="purelane-how__stat">
+            {% if block.settings.title != blank %}
 
-        <div class="purelane-how__circle">
-          100%
-        </div>
+              <strong>
+                {{ block.settings.title }}
+              </strong>
 
-        <strong>PLANT BASED</strong>
-
-        <p>
-          Cleansers derived from plants
-        </p>
-
-      </div>
+            {% endif %}
 
 
-      <div class="purelane-how__stat">
+            {% if block.settings.description != blank %}
 
-        <div class="purelane-how__circle">
-          4.8
-        </div>
+              <p>
+                {{ block.settings.description }}
+              </p>
 
-        <strong>RATED</strong>
+            {% endif %}
 
-        <p>
-          Across 8,000+ verified reviews
-        </p>
+          </div>
+
+        {% endfor %}
 
       </div>
 
-    </div>
+    {% endif %}
 
   </div>
 
@@ -138,13 +241,240 @@
 
 
 {% schema %}
+
 {
   "name": "How It Works",
-  "settings": [],
-  "presets": [
+
+  "settings": [
+
     {
-      "name": "How It Works"
+      "type": "header",
+      "content": "Main content"
+    },
+
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "WHY IT WORKS"
+    },
+
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "TOUGH ON GRIME. GENTLE ON EVERYTHING ELSE."
+    },
+
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every formula is built on plant-derived cleansers and essential oils. It behaves exactly like the cleaner you are used to, minus the things you never signed up for."
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SEE THE INGREDIENT LIST"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Featured product"
+    },
+
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+
+    {
+      "type": "text",
+      "id": "product_subtitle",
+      "label": "Product subtitle",
+      "default": "Kills 99.9% of germs"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Fallback product image"
+    },
+
+    {
+      "type": "text",
+      "id": "product_alt",
+      "label": "Fallback image alt text",
+      "default": "Purelane cleaning product"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_product_dots",
+      "label": "Show product navigation dots",
+      "default": true
     }
+
+  ],
+
+
+  "blocks": [
+
+    {
+      "type": "stat",
+
+      "name": "Statistic",
+
+      "settings": [
+
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "99.9%"
+        },
+
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "GERM KILL"
+        },
+
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Tested against germs and bacteria"
+        }
+
+      ]
+
+    },
+
+
+    {
+      "type": "product_slide",
+
+      "name": "Product slide",
+
+      "settings": [
+
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Slide label",
+          "default": "Product"
+        }
+
+      ]
+
+    }
+
+  ],
+
+
+  "presets": [
+
+    {
+      "name": "How It Works",
+
+      "blocks": [
+
+        {
+          "type": "stat",
+          "settings": {
+            "value": "99.9%",
+            "title": "GERM KILL",
+            "description": "Tested against germs and bacteria"
+          }
+        },
+
+        {
+          "type": "stat",
+          "settings": {
+            "value": "0%",
+            "title": "SULPHATES",
+            "description": "No SLS, chlorine or parabens"
+          }
+        },
+
+        {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "title": "PLANT BASED",
+            "description": "Cleansers derived from plants"
+          }
+        },
+
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4.8",
+            "title": "RATED",
+            "description": "Across 8,000+ verified reviews"
+          }
+        },
+
+        {
+          "type": "product_slide",
+          "settings": {
+            "label": "Product 1"
+          }
+        },
+
+        {
+          "type": "product_slide",
+          "settings": {
+            "label": "Product 2"
+          }
+        },
+
+        {
+          "type": "product_slide",
+          "settings": {
+            "label": "Product 3"
+          }
+        },
+
+        {
+          "type": "product_slide",
+          "settings": {
+            "label": "Product 4"
+          }
+        },
+
+        {
+          "type": "product_slide",
+          "settings": {
+            "label": "Product 5"
+          }
+        },
+
+        {
+          "type": "product_slide",
+          "settings": {
+            "label": "Product 6"
+          }
+        }
+
+      ]
+
+    }
+
   ]
+
 }
+
 {% endschema %}
