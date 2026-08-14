@@ -1,91 +1,56 @@
-<section
-  class="hero"
-  id="top"
-  data-scene="1"
->
+{%- comment -%}
+  Purelane Hero
+  - Badges and bottle slides are blocks: add/remove/reorder in the theme
+    editor without touching code.
+  - Bottle slides pull real product image/price/compare-at data.
+  - The 1 / 2 / 3-bottle rotator behaviour is owned entirely by
+    assets/purelane.js.
+{%- endcomment -%}
+
+<section class="hero" id="top" data-scene="1">
   <div class="hero-grid">
 
-    <!-- ================= LEFT PROMISE BADGES ================= -->
-    <div
-      class="badges glass-2"
-      aria-label="Product promises"
-    >
+    <!-- PROMISE BADGES -->
+    {%- liquid
+      assign badge_blocks = section.blocks | where: 'type', 'badge'
+    -%}
 
-      <div class="badge">
-        <span class="bi">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-            <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-          </svg>
-        </span>
+    {%- if badge_blocks.size > 0 -%}
+      <div class="badges glass-2" aria-label="Product promises">
 
-        <span>
-          Plant<br>
-          powered
-        </span>
+        {%- for block in badge_blocks -%}
+
+          <div class="badge" {{ block.shopify_attributes }}>
+
+            <span class="bi">
+              {%- render 'icon', name: block.settings.icon -%}
+            </span>
+
+            <span>
+              {{ block.settings.label }}
+            </span>
+
+          </div>
+
+        {%- endfor -%}
+
       </div>
+    {%- endif -%}
 
 
-      <div class="badge">
-        <span class="bi">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z"/>
-            <path d="m9 12 2.2 2.2L15.4 10"/>
-          </svg>
-        </span>
-
-        <span>
-          Safe for<br>
-          kids &amp; pets
-        </span>
-      </div>
-
-
-      <div class="badge">
-        <span class="bi">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="8.4"/>
-            <path d="M6.4 17.6 17.6 6.4"/>
-          </svg>
-        </span>
-
-        <span>
-          Zero harsh<br>
-          chemicals
-        </span>
-      </div>
-
-    </div>
-
-
-    <!-- ================= HERO COPY ================= -->
+    <!-- HERO COPY -->
     <div class="hero-copy">
 
       <h1 class="d1 rv in">
-        Clean<br>
-        That<br>
-        <span class="lime">Lasts</span>
+
+        {{ section.settings.heading_line_one }}<br>
+
+        {{ section.settings.heading_line_two }}<br>
+
+        <span class="lime">
+          {{ section.settings.heading_highlight }}
+        </span>
+
       </h1>
 
 
@@ -93,17 +58,7 @@
 
         <i></i>
 
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-        </svg>
+        {%- render 'icon', name: 'leaf' -%}
 
         <i></i>
 
@@ -111,436 +66,610 @@
 
 
       <p class="lede rv rv-d2">
-        Homecare that works on the toughest grime,
-        made from plants. Kind to your home,
-        your family and the world outside it.
+        {{ section.settings.description }}
       </p>
 
 
-      <!-- ================= CTA ================= -->
+      <!-- CTA -->
       <div class="hero-cta rv rv-d3">
 
-        <a
-          class="btn btn-primary"
-          href="#shop"
-        >
-          Shop now
+        {%- if section.settings.primary_text != blank -%}
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+          <a
+            class="btn btn-primary"
+            href="{{ section.settings.primary_link | default: '#shop' }}"
           >
-            <path d="M5 12h13"/>
-            <path d="m13 6 6 6-6 6"/>
-          </svg>
-        </a>
+
+            {{ section.settings.primary_text }}
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h13"/>
+              <path d="m13 6 6 6-6 6"/>
+            </svg>
+
+          </a>
+
+        {%- endif -%}
 
 
-        <a
-          class="btn btn-ghost"
-          href="#how"
-        >
-          How it works
-        </a>
+        {%- if section.settings.secondary_text != blank -%}
+
+          <a
+            class="btn btn-ghost"
+            href="{{ section.settings.secondary_link | default: '#how' }}"
+          >
+            {{ section.settings.secondary_text }}
+          </a>
+
+        {%- endif -%}
 
       </div>
 
 
-      <!-- ================= MOBILE BADGES ================= -->
-      <div class="badgestrip rv rv-d4">
+      <!-- MOBILE BADGES -->
+      {%- if badge_blocks.size > 0 -%}
 
-        <div class="glass-2">
+        <div class="badgestrip rv rv-d4">
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-            <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-          </svg>
+          {%- for block in badge_blocks -%}
 
-          Plant powered
+            <div
+              class="glass-2"
+              {{ block.shopify_attributes }}
+            >
 
-        </div>
+              {%- render 'icon', name: block.settings.icon -%}
 
+              {{ block.settings.short_label | default: block.settings.label }}
 
-        <div class="glass-2">
+            </div>
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z"/>
-            <path d="m9 12 2.2 2.2L15.4 10"/>
-          </svg>
-
-          Kids &amp; pet safe
+          {%- endfor -%}
 
         </div>
 
-
-        <div class="glass-2">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="8.4"/>
-            <path d="M6.4 17.6 17.6 6.4"/>
-          </svg>
-
-          Zero harsh chem
-
-        </div>
-
-      </div>
+      {%- endif -%}
 
     </div>
 
 
-    <!-- ================= HERO PRODUCTS ================= -->
-    <div
-      class="hero-prod"
-      id="heroProd"
-    >
+    <!-- HERO PRODUCTS -->
+
+    {%- liquid
+      assign slide_blocks = section.blocks | where: 'type', 'hero_slide'
+    -%}
+
+
+    {%- if slide_blocks.size > 0 -%}
 
       <div
-        class="hstage"
-        id="hstage"
+        class="hero-prod"
+        id="heroProd"
       >
 
-        <!-- ================= SLIDE 1 ================= -->
         <div
-          class="hslide hs1 on"
-          data-n="1"
+          class="hstage"
+          id="hstage"
         >
 
-          <span
-            class="hp p-kbtl a d1"
-            role="img"
-            aria-label="Purelane foaming kitchen cleaner spray bottle"
-          ></span>
+          {%- for block in slide_blocks -%}
+
+            {%- assign img_loading = 'lazy' -%}
+
+            {%- if forloop.first -%}
+              {%- assign img_loading = 'eager' -%}
+            {%- endif -%}
 
 
-          <div class="glass-2 ptag">
+            {%- liquid
 
-            <span class="lbl">
-              Single bottle
-            </span>
+              assign p1 = block.settings.product_1
+              assign p2 = block.settings.product_2
+              assign p3 = block.settings.product_3
 
-            <span class="val">
+              assign item_count = 0
 
-              <strong>
-                ₹200
-              </strong>
+              if p1 != blank
+                assign item_count = item_count | plus: 1
+              endif
 
-              <s>
-                ₹299
-              </s>
+              if p2 != blank
+                assign item_count = item_count | plus: 1
+              endif
 
-            </span>
+              if p3 != blank
+                assign item_count = item_count | plus: 1
+              endif
 
-            <span class="cut">
-              33% off
-            </span>
 
-          </div>
+              assign price_sum = 0
+
+              if p1 != blank
+                assign price_sum = price_sum | plus: p1.price
+              endif
+
+              if p2 != blank
+                assign price_sum = price_sum | plus: p2.price
+              endif
+
+              if p3 != blank
+                assign price_sum = price_sum | plus: p3.price
+              endif
+
+
+              assign shown_price = price_sum
+
+              if block.settings.bundle_price > 0
+                assign shown_price = block.settings.bundle_price | times: 100
+              endif
+
+
+              assign show_compare = false
+
+              if shown_price < price_sum
+                assign show_compare = true
+              endif
+
+
+              assign save_amount = price_sum | minus: shown_price
+
+              assign save_percent = 0
+
+              if price_sum > 0
+                assign save_percent = save_amount | times: 100.0 | divided_by: price_sum | round
+              endif
+
+            -%}
+
+
+            {%- if item_count > 0 -%}
+
+              <div
+                class="hslide{% if forloop.first %} on{% endif %} hs{{ forloop.index }}"
+                data-n="{{ forloop.index }}"
+                data-count="{{ item_count }}"
+                {{ block.shopify_attributes }}
+              >
+
+
+                <!-- PRODUCT 1 -->
+
+                {%- if p1 != blank -%}
+
+                  <div class="hp-wrap">
+
+                    {%- if p1.featured_image -%}
+
+                      {{
+                        p1.featured_image
+                        | image_url: width: 480
+                        | image_tag:
+                          class: 'hp a',
+                          loading: img_loading,
+                          widths: '235, 470',
+                          sizes: '235px',
+                          alt: p1.featured_image.alt | default: p1.title
+                      }}
+
+                    {%- else -%}
+
+                      <span
+                        class="hp a empty"
+                        role="img"
+                        aria-label="{{ p1.title | escape }}"
+                      ></span>
+
+                    {%- endif -%}
+
+                  </div>
+
+                {%- endif -%}
+
+
+                <!-- PRODUCT 2 -->
+
+                {%- if p2 != blank -%}
+
+                  <div class="hp-wrap">
+
+                    {%- if p2.featured_image -%}
+
+                      {{
+                        p2.featured_image
+                        | image_url: width: 480
+                        | image_tag:
+                          class: 'hp b',
+                          loading: 'lazy',
+                          widths: '235, 470',
+                          sizes: '235px',
+                          alt: p2.featured_image.alt | default: p2.title
+                      }}
+
+                    {%- else -%}
+
+                      <span
+                        class="hp b empty"
+                        role="img"
+                        aria-label="{{ p2.title | escape }}"
+                      ></span>
+
+                    {%- endif -%}
+
+                  </div>
+
+                {%- endif -%}
+
+
+                <!-- PRODUCT 3 -->
+
+                {%- if p3 != blank -%}
+
+                  <div class="hp-wrap">
+
+                    {%- if p3.featured_image -%}
+
+                      {{
+                        p3.featured_image
+                        | image_url: width: 480
+                        | image_tag:
+                          class: 'hp c',
+                          loading: 'lazy',
+                          widths: '235, 470',
+                          sizes: '235px',
+                          alt: p3.featured_image.alt | default: p3.title
+                      }}
+
+                    {%- else -%}
+
+                      <span
+                        class="hp c empty"
+                        role="img"
+                        aria-label="{{ p3.title | escape }}"
+                      ></span>
+
+                    {%- endif -%}
+
+                  </div>
+
+                {%- endif -%}
+
+
+                <!-- PRICE CARD -->
+
+                <div class="glass-2 ptag">
+
+                  <span class="lbl">
+                    {{ block.settings.label }}
+                  </span>
+
+
+                  <span class="val">
+
+                    <strong>
+                      {{ shown_price | money }}
+                    </strong>
+
+                    {%- if show_compare -%}
+
+                      <s>
+                        {{ price_sum | money }}
+                      </s>
+
+                    {%- endif -%}
+
+                  </span>
+
+
+                  {%- if show_compare -%}
+
+                    <span class="cut">
+
+                      {%- if item_count == 1 -%}
+
+                        {{ save_percent }}% off
+
+                      {%- else -%}
+
+                        Save {{ save_amount | money }}
+
+                      {%- endif -%}
+
+                    </span>
+
+                  {%- endif -%}
+
+                </div>
+
+              </div>
+
+            {%- endif -%}
+
+          {%- endfor -%}
 
         </div>
 
 
-        <!-- ================= SLIDE 2 ================= -->
-        <div
-          class="hslide hs2"
-          data-n="2"
-        >
+        <!-- DOT CONTROLS -->
 
-          <span
-            class="hp p-tbtl a d1"
-            role="img"
-            aria-label="Purelane tap cleaner and limescale remover spray bottle"
-          ></span>
+        {%- if slide_blocks.size > 1 -%}
 
+          <div
+            class="hdots"
+            id="hdots"
+          >
 
-          <span
-            class="hp p-kbtl b d2"
-            role="img"
-            aria-label="Purelane foaming kitchen cleaner spray bottle"
-          ></span>
+            {%- for block in slide_blocks -%}
 
+              <button
+                type="button"
+                {% if forloop.first %}
+                  class="on"
+                {% endif %}
+                aria-label="Show {{ block.settings.label | default: forloop.index }}"
+              ></button>
 
-          <div class="glass-2 ptag">
-
-            <span class="lbl">
-              Any 2 products
-            </span>
-
-            <span class="val">
-
-              <strong>
-                ₹349
-              </strong>
-
-              <s>
-                ₹598
-              </s>
-
-            </span>
-
-            <span class="cut">
-              Save ₹249
-            </span>
+            {%- endfor -%}
 
           </div>
 
-        </div>
-
-
-        <!-- ================= SLIDE 3 ================= -->
-        <div
-          class="hslide hs3"
-          data-n="3"
-        >
-
-          <span
-            class="hp p-tbtl a d1"
-            role="img"
-            aria-label="Purelane tap cleaner and limescale remover spray bottle"
-          ></span>
-
-
-          <span
-            class="hp p-mbtl b d2"
-            role="img"
-            aria-label="Purelane copper, bronze and brass cleaner pump bottle"
-          ></span>
-
-
-          <span
-            class="hp p-kbtl c d3"
-            role="img"
-            aria-label="Purelane foaming kitchen cleaner spray bottle"
-          ></span>
-
-
-          <div class="glass-2 ptag">
-
-            <span class="lbl">
-              Any 3 products
-            </span>
-
-            <span class="val">
-
-              <strong>
-                ₹499
-              </strong>
-
-              <s>
-                ₹897
-              </s>
-
-            </span>
-
-            <span class="cut">
-              Save ₹398
-            </span>
-
-          </div>
-
-        </div>
+        {%- endif -%}
 
       </div>
 
-
-      <!-- ================= DOT CONTROLS ================= -->
-      <div
-        class="hdots"
-        id="hdots"
-      >
-
-        <button
-          type="button"
-          class="on"
-          aria-label="Show 1 product"
-        ></button>
-
-        <button
-          type="button"
-          aria-label="Show 2 products"
-        ></button>
-
-        <button
-          type="button"
-          aria-label="Show 3 products"
-        ></button>
-
-      </div>
-
-    </div>
+    {%- endif -%}
 
   </div>
 </section>
 
 
-<script>
-  (() => {
-    const hstage = document.getElementById('hstage');
-
-    if (!hstage) return;
-
-    const slides = Array.from(
-      hstage.querySelectorAll('.hslide')
-    );
-
-    const dots = Array.from(
-      document.querySelectorAll('#hdots button')
-    );
-
-    if (!slides.length) return;
-
-    let current = 0;
-    let timer = null;
-
-    const reducedMotion =
-      window.matchMedia &&
-      window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
-
-
-    function goTo(index) {
-
-      current =
-        (index + slides.length) %
-        slides.length;
-
-      slides.forEach((slide, i) => {
-        slide.classList.toggle(
-          'on',
-          i === current
-        );
-      });
-
-
-      dots.forEach((dot, i) => {
-        dot.classList.toggle(
-          'on',
-          i === current
-        );
-      });
-
-    }
-
-
-    function start() {
-
-      if (timer || reducedMotion) return;
-
-      timer = setInterval(() => {
-        goTo(current + 1);
-      }, 3800);
-
-    }
-
-
-    function stop() {
-
-      if (!timer) return;
-
-      clearInterval(timer);
-      timer = null;
-
-    }
-
-
-    dots.forEach((dot, index) => {
-
-      dot.addEventListener(
-        'click',
-        () => {
-
-          stop();
-
-          goTo(index);
-
-          start();
-
-        }
-      );
-
-    });
-
-
-    hstage.addEventListener(
-      'mouseenter',
-      stop
-    );
-
-
-    hstage.addEventListener(
-      'mouseleave',
-      start
-    );
-
-
-    if ('IntersectionObserver' in window) {
-
-      const observer =
-        new IntersectionObserver(
-          (entries) => {
-
-            entries.forEach((entry) => {
-
-              if (entry.isIntersecting) {
-                start();
-              } else {
-                stop();
-              }
-
-            });
-
-          },
-          {
-            threshold: 0.2
-          }
-        );
-
-      observer.observe(hstage);
-
-    } else {
-
-      start();
-
-    }
-
-  })();
-</script>
-
-
 {% schema %}
+
 {
   "name": "Purelane Hero",
-  "settings": [],
-  "presets": [
+
+  "settings": [
+
     {
-      "name": "Purelane Hero"
+      "type": "header",
+      "content": "Heading"
+    },
+
+    {
+      "type": "text",
+      "id": "heading_line_one",
+      "label": "Heading, line 1",
+      "default": "Clean"
+    },
+
+    {
+      "type": "text",
+      "id": "heading_line_two",
+      "label": "Heading, line 2",
+      "default": "That"
+    },
+
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading, highlighted line",
+      "default": "Lasts"
+    },
+
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+
+    {
+      "type": "text",
+      "id": "primary_text",
+      "label": "Primary button label",
+      "default": "Shop now"
+    },
+
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+
+    {
+      "type": "text",
+      "id": "secondary_text",
+      "label": "Secondary button label",
+      "default": "How it works"
+    },
+
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
     }
+
+  ],
+
+
+  "blocks": [
+
+    {
+      "type": "badge",
+      "name": "Promise badge",
+
+      "settings": [
+
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+
+          "options": [
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "shield-check",
+              "label": "Shield check"
+            },
+            {
+              "value": "no-chemicals",
+              "label": "No chemicals"
+            },
+            {
+              "value": "drop",
+              "label": "Drop"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            }
+          ],
+
+          "default": "leaf"
+        },
+
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Shown on tablet/desktop. Can include a line break.",
+          "default": "Plant powered"
+        },
+
+        {
+          "type": "text",
+          "id": "short_label",
+          "label": "Short label (mobile)",
+          "info": "Falls back to Label if left blank.",
+          "default": "Plant powered"
+        }
+
+      ]
+    },
+
+
+    {
+      "type": "hero_slide",
+      "name": "Bottle slide",
+
+      "settings": [
+
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Slide label",
+          "default": "Single bottle"
+        },
+
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product 1 (front)"
+        },
+
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2 (optional)"
+        },
+
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3 (optional)"
+        },
+
+        {
+          "type": "number",
+          "id": "bundle_price",
+          "label": "Bundle price override",
+          "info": "Only used when 2 or 3 products are picked. Leave blank to show the sum of the real product prices with no discount."
+        }
+
+      ]
+    }
+
+  ],
+
+
+  "max_blocks": 8,
+
+
+  "presets": [
+
+    {
+      "name": "Purelane Hero",
+
+      "blocks": [
+
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "label": "Plant powered",
+            "short_label": "Plant powered"
+          }
+        },
+
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "shield-check",
+            "label": "Safe for kids & pets",
+            "short_label": "Kids & pet safe"
+          }
+        },
+
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "no-chemicals",
+            "label": "Zero harsh chemicals",
+            "short_label": "Zero harsh chem"
+          }
+        },
+
+        {
+          "type": "hero_slide",
+          "settings": {
+            "label": "Single bottle"
+          }
+        },
+
+        {
+          "type": "hero_slide",
+          "settings": {
+            "label": "Any 2 products"
+          }
+        },
+
+        {
+          "type": "hero_slide",
+          "settings": {
+            "label": "Any 3 products"
+          }
+        }
+
+      ]
+    }
+
   ]
 }
+
 {% endschema %}

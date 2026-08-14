@@ -7,23 +7,57 @@
         "heading_line_two": "That",
         "heading_highlight": "Lasts",
         "description": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it.",
-        "badge_one": "Plant powered",
-        "badge_two": "Safe for kids & pets",
-        "badge_three": "Zero harsh chemicals",
         "primary_text": "Shop now",
         "primary_link": "#shop",
         "secondary_text": "How it works",
-        "secondary_link": "#how",
-        "price_one": "₹200",
-        "compare_one": "₹299",
-        "offer_one": "33% off",
-        "price_two": "₹349",
-        "compare_two": "₹598",
-        "offer_two": "Save ₹249",
-        "price_three": "₹499",
-        "compare_three": "₹897",
-        "offer_three": "Save ₹398"
-      }
+        "secondary_link": "#how"
+      },
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "label": "Plant powered",
+            "short_label": "Plant powered"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield-check",
+            "label": "Safe for kids & pets",
+            "short_label": "Kids & pet safe"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "no-chemicals",
+            "label": "Zero harsh chemicals",
+            "short_label": "Zero harsh chem"
+          }
+        },
+        "slide_1": {
+          "type": "hero_slide",
+          "settings": { "label": "Single bottle" }
+        },
+        "slide_2": {
+          "type": "hero_slide",
+          "settings": { "label": "Any 2 products" }
+        },
+        "slide_3": {
+          "type": "hero_slide",
+          "settings": { "label": "Any 3 products" }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ]
     },
 
     "reviews": {
@@ -89,6 +123,14 @@
         "review_5"
       ]
     },
+    "ingrediants": {
+      "type": "ingrediants",
+      "settings": {}
+    },
+    "how_it_works": {
+      "type": "how-it-works",
+      "settings": {}
+    },
 
     "combos": {
       "type": "best-selling-combos",
@@ -122,6 +164,8 @@
   "order": [
     "hero",
     "reviews",
+    "ingrediants",
+    "how_it_works",
     "combos",
     "bundles",
     "shop"
