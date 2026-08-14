@@ -1,0 +1,129 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading_line_one": "Clean",
+        "heading_line_two": "That",
+        "heading_highlight": "Lasts",
+        "description": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it.",
+        "badge_one": "Plant powered",
+        "badge_two": "Safe for kids & pets",
+        "badge_three": "Zero harsh chemicals",
+        "primary_text": "Shop now",
+        "primary_link": "#shop",
+        "secondary_text": "How it works",
+        "secondary_link": "#how",
+        "price_one": "₹200",
+        "compare_one": "₹299",
+        "offer_one": "33% off",
+        "price_two": "₹349",
+        "compare_two": "₹598",
+        "offer_two": "Save ₹249",
+        "price_three": "₹499",
+        "compare_three": "₹897",
+        "offer_three": "Save ₹398"
+      }
+    },
+
+    "reviews": {
+      "type": "reviews-rail",
+      "settings": {
+        "kicker": "That's what they said",
+        "rating": "4.8",
+        "rating_text": "from 8,000+ reviews",
+        "homes": "12 lakh+"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "title": "Works like a charm",
+            "review": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "name": "Anita",
+            "product": "Laundry detergent"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "title": "Best dishwash ever",
+            "review": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "name": "Priya",
+            "product": "Dishwash gel"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "title": "Great product, great packaging",
+            "review": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "name": "Sunita",
+            "product": "Liquid handwash"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "title": "Dog friendly",
+            "review": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "name": "Rohit S.",
+            "product": "Floor cleaner"
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "title": "Sparkling taps again",
+            "review": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "name": "Verified buyer",
+            "product": "Tap cleaner"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
+      ]
+    },
+
+    "combos": {
+      "type": "best-selling-combos",
+      "settings": {
+        "kicker": "Pre-built to save you money",
+        "heading": "Best selling combos",
+        "description": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own.",
+        "note": "Tapping Shop bundle opens the bundle picker with these products already added. You can still swap anything before you pay."
+      }
+    },
+
+    "bundles": {
+      "type": "bundles",
+      "settings": {
+        "kicker": "Build your bundle",
+        "heading": "One box. Every room.",
+        "description": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+      }
+    },
+
+    "shop": {
+      "type": "product-grid",
+      "settings": {
+        "kicker": "Bestsellers",
+        "heading": "Loved by 30,000 homes",
+        "products_to_show": 8
+      }
+    }
+  },
+
+  "order": [
+    "hero",
+    "reviews",
+    "combos",
+    "bundles",
+    "shop"
+  ]
+}
