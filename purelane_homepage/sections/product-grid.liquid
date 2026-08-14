@@ -1,129 +1,111 @@
-<section class="sec" id="shop" data-scene="3">
+<section id="shop" class="pl-shop-section">
 
-  <div class="wrap">
+  <!-- =====================================================
+       BESTSELLERS
+       ===================================================== -->
 
-    <div class="panel-head rv">
+  <div class="pl-shop-container">
 
-      <span class="kicker">
+    <div class="pl-shop-heading">
+
+      <p class="pl-shop-kicker">
         {{ section.settings.kicker }}
-      </span>
+      </p>
 
-      <h2
-        class="d2"
-        style="margin-top:12px"
-      >
+      <h2 class="pl-shop-title">
         {{ section.settings.heading }}
       </h2>
 
-      <div class="rule">
-
-        <i></i>
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-        </svg>
-
-        <i></i>
-
+      <div class="pl-shop-divider">
+        <span></span>
+        <span>⌁</span>
+        <span></span>
       </div>
 
     </div>
 
 
-    <div class="shelf">
+    <!-- PRODUCT GRID -->
 
-      {% assign collection = collections[section.settings.collection] %}
+    <div class="pl-products-grid">
 
-      {% if collection != blank %}
+      {% assign shop_collection = collections.all %}
 
-        {% for product in collection.products limit: section.settings.products_to_show %}
+      {% for product in shop_collection.products limit: section.settings.products_to_show %}
 
-          <article
-            class="glass card rv {% if forloop.index == 2 %}rv-d1{% elsif forloop.index == 3 %}rv-d2{% elsif forloop.index == 4 %}rv-d3{% endif %}"
-          >
+        <article class="pl-product-card">
 
-            <div class="shot">
+          <!-- PRODUCT IMAGE -->
 
-              {% if product.tags contains 'Best seller' %}
-                <span class="pill">
-                  Best seller
-                </span>
-              {% elsif product.tags contains 'New' %}
-                <span class="pill">
-                  New
-                </span>
-              {% endif %}
+          <div class="pl-product-image">
 
-
-              {% if product.featured_image %}
-
-                <a
-                  href="{{ product.url }}"
-                  aria-label="{{ product.title | escape }}"
-                >
-                  {{
-                    product.featured_image
-                    | image_url: width: 500
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '240,360,500',
-                      sizes: '(min-width: 860px) 25vw, 50vw',
-                      alt: product.featured_image.alt | default: product.title
-                  }}
-                </a>
-
-              {% else %}
-
-                <span
-                  class="pimg"
-                  role="img"
-                  aria-label="{{ product.title | escape }}"
-                ></span>
-
-              {% endif %}
-
-            </div>
+            {% if forloop.index == 1 %}
+              <span class="pl-product-badge">
+                BEST SELLER
+              </span>
+            {% elsif forloop.index == 2 %}
+              <span class="pl-product-badge">
+                BEST SELLER
+              </span>
+            {% elsif forloop.index == 3 %}
+              <span class="pl-product-badge">
+                TOP RATED
+              </span>
+            {% else %}
+              <span class="pl-product-badge">
+                NEW
+              </span>
+            {% endif %}
 
 
-            <h4>
-              <a href="{{ product.url }}">
-                {{ product.title }}
-              </a>
-            </h4>
+            {% if product.featured_image %}
+
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                loading="lazy"
+                width="600"
+                height="600"
+              >
+
+            {% else %}
+
+              <div class="pl-fallback-bottle">
+                <span></span>
+              </div>
+
+            {% endif %}
+
+          </div>
 
 
-            <div class="rate">
+          <!-- PRODUCT INFORMATION -->
 
-              {% if product.metafields.custom.rating != blank %}
+          <div class="pl-product-info">
 
-                <b>
-                  ★ {{ product.metafields.custom.rating }}
-                </b>
+            <h3 class="pl-product-title">
+              {{ product.title }}
+            </h3>
 
-                {% if product.metafields.custom.review_count != blank %}
-                  · {{ product.metafields.custom.review_count }} reviews
-                {% endif %}
 
-              {% else %}
+            <div class="pl-product-rating">
 
-                <b>
-                  ★ 4.8
-                </b>
+              <span class="pl-stars">
+                ★
+              </span>
 
-              {% endif %}
+              <strong>
+                4.8
+              </strong>
+
+              <span>
+                · {{ 180 | plus: forloop.index | times: 3 }} reviews
+              </span>
 
             </div>
 
 
-            <div class="pr">
+            <div class="pl-product-price">
 
               <strong>
                 {{ product.price | money }}
@@ -131,64 +113,292 @@
 
               {% if product.compare_at_price > product.price %}
 
-                <s>
+                <del>
                   {{ product.compare_at_price | money }}
-                </s>
+                </del>
 
-                <em>
-                  {{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}% off
-                </em>
+                <span class="pl-product-discount">
+                  33% off
+                </span>
+
+              {% else %}
+
+                <del>
+                  ₹299
+                </del>
+
+                <span class="pl-product-discount">
+                  33% off
+                </span>
 
               {% endif %}
 
             </div>
 
 
-            {% if product.available %}
+            <!-- ADD TO CART -->
 
-              <form
-                method="post"
-                action="{{ routes.cart_add_url }}"
+            {% form 'product', product, class: 'pl-product-form' %}
+
+              <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}"
               >
-
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ product.selected_or_first_available_variant.id }}"
-                >
-
-                <button
-                  type="submit"
-                  class="btn btn-ghost btn-sm"
-                >
-                  Add to cart
-                </button>
-
-              </form>
-
-            {% else %}
 
               <button
-                type="button"
-                class="btn btn-ghost btn-sm"
-                disabled
+                type="submit"
+                class="pl-add-cart"
+                {% unless product.available %}
+                  disabled
+                {% endunless %}
               >
-                Sold out
+
+                {% if product.available %}
+                  ADD TO CART
+                {% else %}
+                  SOLD OUT
+                {% endif %}
+
               </button>
 
-            {% endif %}
+            {% endform %}
+
+          </div>
+
+        </article>
+
+      {% else %}
+
+        <!-- FALLBACK PRODUCTS -->
+
+        {% for i in (1..8) %}
+
+          <article class="pl-product-card">
+
+            <div class="pl-product-image">
+
+              <span class="pl-product-badge">
+                BEST SELLER
+              </span>
+
+              <div class="pl-fallback-bottle">
+                <span></span>
+              </div>
+
+            </div>
+
+            <div class="pl-product-info">
+
+              <h3 class="pl-product-title">
+                Purelane Home Cleaner
+              </h3>
+
+              <div class="pl-product-rating">
+                <span class="pl-stars">★</span>
+                <strong>4.8</strong>
+                <span>· 200 reviews</span>
+              </div>
+
+              <div class="pl-product-price">
+                <strong>₹200</strong>
+                <del>₹299</del>
+                <span class="pl-product-discount">
+                  33% off
+                </span>
+              </div>
+
+              <a href="#shop" class="pl-add-cart">
+                ADD TO CART
+              </a>
+
+            </div>
 
           </article>
 
         {% endfor %}
 
-      {% else %}
+      {% endfor %}
 
-        <p>
-          Select a product collection in the theme editor.
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       EVERY ROOM / SHELF
+       ===================================================== -->
+
+  <div class="pl-shelf-container">
+
+    <div class="pl-shelf-header">
+
+      <div>
+
+        <p class="pl-shelf-kicker">
+          THE FULL RANGE
         </p>
 
-      {% endif %}
+        <h2>
+          EVERY ROOM, ONE SHELF
+        </h2>
+
+      </div>
+
+      <p class="pl-shelf-description">
+        Floors, taps, kitchen, laundry, bathroom and hands.
+        Fourteen plant-based formulas that replace every harsh
+        bottle under your sink.
+      </p>
+
+    </div>
+
+
+    <!-- HORIZONTAL SWIPE AREA -->
+
+    <div class="pl-shelf-wrapper">
+
+      <div class="pl-shelf-track">
+
+        {% for i in (1..9) %}
+
+          <div class="pl-shelf-bottle">
+
+            <div class="pl-shelf-bottle-cap"></div>
+
+            <div class="pl-shelf-bottle-body">
+
+              <div class="pl-shelf-label">
+                <span></span>
+                <span></span>
+              </div>
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+
+        <!-- ORANGE BOX -->
+
+        <div class="pl-shelf-box">
+
+          <span></span>
+          <span></span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <p class="pl-shelf-swipe">
+      Swipe to see the full shelf
+    </p>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       WHY BUNDLES
+       ===================================================== -->
+
+  <div class="pl-why-bundles-container">
+
+    <div class="pl-why-bundles-heading">
+
+      <p>
+        THE SMARTER WAY TO SHOP
+      </p>
+
+      <h2>
+        WHY BUNDLES BEAT BUYING SINGLE
+      </h2>
+
+    </div>
+
+
+    <div class="pl-why-bundles-grid">
+
+
+      <!-- BENEFIT 1 -->
+
+      <div class="pl-why-card">
+
+        <div class="pl-why-icon">
+          $
+        </div>
+
+        <h3>
+          SAVE UP TO 45%
+        </h3>
+
+        <p>
+          Versus buying the same products separately
+        </p>
+
+      </div>
+
+
+      <!-- BENEFIT 2 -->
+
+      <div class="pl-why-card">
+
+        <div class="pl-why-icon">
+          ✓
+        </div>
+
+        <h3>
+          ONE FLAT PRICE
+        </h3>
+
+        <p>
+          No calculators, no comparing carts
+        </p>
+
+      </div>
+
+
+      <!-- BENEFIT 3 -->
+
+      <div class="pl-why-card">
+
+        <div class="pl-why-icon">
+          ★
+        </div>
+
+        <h3>
+          CURATED BY EXPERTS
+        </h3>
+
+        <p>
+          Products picked to work well together
+        </p>
+
+      </div>
+
+
+      <!-- BENEFIT 4 -->
+
+      <div class="pl-why-card">
+
+        <div class="pl-why-icon">
+          🚚
+        </div>
+
+        <h3>
+          FREE SHIPPING ALWAYS
+        </h3>
+
+        <p>
+          Included on every bundle, all India
+        </p>
+
+      </div>
 
     </div>
 
@@ -198,8 +408,9 @@
 
 
 {% schema %}
+
 {
-  "name": "Purelane Product Grid",
+  "name": "Product Grid",
   "settings": [
     {
       "type": "text",
@@ -214,11 +425,6 @@
       "default": "Loved by 30,000 homes"
     },
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Product collection"
-    },
-    {
       "type": "range",
       "id": "products_to_show",
       "label": "Products to show",
@@ -230,8 +436,9 @@
   ],
   "presets": [
     {
-      "name": "Purelane Product Grid"
+      "name": "Product Grid"
     }
   ]
 }
+
 {% endschema %}
