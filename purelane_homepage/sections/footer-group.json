@@ -4,7 +4,18 @@
   "sections": {
     "purelane_footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "brand_name": "PURELANE",
+        "brand_tagline": "CLEAN, SIMPLY",
+        "brand_description": "Effective cleaning, powered by nature. Made for Indian homes since day one.",
+        "shop_heading": "SHOP",
+        "about_heading": "ABOUT",
+        "contact_heading": "GET IN TOUCH",
+        "email": "hello@purelane.com",
+        "phone": "+91 9930 123 234",
+        "company_name": "Purelane Eco Products Private Limited",
+        "copyright_text": "© 2026 Purelane Eco Products Private Limited"
+      }
     }
   },
   "order": ["purelane_footer"]

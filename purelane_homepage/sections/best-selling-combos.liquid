@@ -1,53 +1,30 @@
-<section
-  id="combos"
-  class="combo-section"
-  data-combo-section
->
+<section id="combos" class="pl-combos-section">
 
-  <div class="combo-wrap">
+  <div class="pl-combos-container">
 
     <!-- HEADER -->
-
-    <div class="combo-header">
+    <div class="pl-combos-heading">
 
       {% if section.settings.kicker != blank %}
-        <span class="combo-kicker">
+        <p class="pl-combos-kicker">
           {{ section.settings.kicker }}
-        </span>
+        </p>
       {% endif %}
 
-
       {% if section.settings.heading != blank %}
-        <h2 class="combo-heading">
+        <h2 class="pl-combos-title">
           {{ section.settings.heading }}
         </h2>
       {% endif %}
 
-
-      <div class="combo-rule">
-
+      <div class="pl-combos-divider">
         <span></span>
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
-          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
-        </svg>
-
+        <span>⌁</span>
         <span></span>
-
       </div>
 
-
       {% if section.settings.description != blank %}
-        <p class="combo-description">
+        <p class="pl-combos-description">
           {{ section.settings.description }}
         </p>
       {% endif %}
@@ -55,414 +32,153 @@
     </div>
 
 
-    <!-- SLIDER -->
+    <!-- BUNDLE CARDS -->
+    <div class="pl-combos-slider">
 
-    <div
-      class="combo-slider"
-      data-combo-slider
-      tabindex="0"
-      aria-label="{{ section.settings.slider_label }}"
-    >
+      <div class="pl-combos-track" id="PlCombosTrack-{{ section.id }}">
 
-      {% assign combo_blocks = section.blocks | where: 'type', 'combo' %}
+        {% for block in section.blocks %}
 
-      {% for block in combo_blocks %}
+          <article
+            class="pl-combo-card"
+            {{ block.shopify_attributes }}
+          >
 
-        {% assign product_1 = block.settings.product_1 %}
-        {% assign product_2 = block.settings.product_2 %}
-        {% assign product_3 = block.settings.product_3 %}
+            <!-- BADGES -->
+            {% if block.settings.badge != blank or block.settings.secondary_badge != blank %}
+              <div class="pl-combo-badges">
 
-
-        <article
-          class="
-            combo-card
-            {% if block.settings.featured %}
-              combo-card-featured
-            {% endif %}
-          "
-          {{ block.shopify_attributes }}
-        >
-
-          <!-- =========================
-               CARD TOP
-          ========================== -->
-
-          <div class="combo-card-top">
-
-
-            {% if block.settings.save_badge != blank %}
-
-              <span class="combo-save">
-                {{ block.settings.save_badge }}
-              </span>
-
-            {% endif %}
-
-
-            {% if block.settings.secondary_badge != blank %}
-
-              <span
-                class="
-                  {% if block.settings.featured %}
-                    combo-best-value
-                  {% else %}
-                    combo-popular
-                  {% endif %}
-                "
-              >
-                {{ block.settings.secondary_badge }}
-              </span>
-
-            {% endif %}
-
-
-            <!-- PRODUCTS -->
-
-            <div
-              class="
-                combo-products
-                {% if product_3 == blank %}
-                  combo-products-two
-                {% endif %}
-              "
-            >
-
-
-              {% if product_1 != blank %}
-
-                <div class="combo-product">
-
-                  {% if product_1.featured_image != blank %}
-
-                    <div class="combo-product-image">
-
-                      {{
-                        product_1.featured_image
-                        | image_url: width: 300
-                        | image_tag:
-                          loading: 'lazy',
-                          alt: product_1.title
-                      }}
-
-                    </div>
-
-                  {% else %}
-
-                    <div class="combo-bottle combo-bottle-purple">
-
-                      <span class="combo-pump"></span>
-                      <span class="combo-label"></span>
-
-                    </div>
-
-                  {% endif %}
-
-
-                  {% if block.settings.product_1_text != blank %}
-
-                    <span>
-                      {{ block.settings.product_1_text }}
-                    </span>
-
-                  {% else %}
-
-                    <span>
-                      {{ product_1.title }}
-                    </span>
-
-                  {% endif %}
-
-                </div>
-
-              {% endif %}
-
-
-              {% if product_2 != blank %}
-
-                <span class="combo-plus">
-                  +
-                </span>
-
-
-                <div class="combo-product">
-
-                  {% if product_2.featured_image != blank %}
-
-                    <div class="combo-product-image">
-
-                      {{
-                        product_2.featured_image
-                        | image_url: width: 300
-                        | image_tag:
-                          loading: 'lazy',
-                          alt: product_2.title
-                      }}
-
-                    </div>
-
-                  {% else %}
-
-                    <div class="combo-bottle combo-bottle-purple">
-
-                      <span class="combo-pump"></span>
-                      <span class="combo-label"></span>
-
-                    </div>
-
-                  {% endif %}
-
-
-                  {% if block.settings.product_2_text != blank %}
-
-                    <span>
-                      {{ block.settings.product_2_text }}
-                    </span>
-
-                  {% else %}
-
-                    <span>
-                      {{ product_2.title }}
-                    </span>
-
-                  {% endif %}
-
-                </div>
-
-              {% endif %}
-
-
-              {% if product_3 != blank %}
-
-                <span class="combo-plus">
-                  +
-                </span>
-
-
-                <div class="combo-product">
-
-                  {% if product_3.featured_image != blank %}
-
-                    <div class="combo-product-image">
-
-                      {{
-                        product_3.featured_image
-                        | image_url: width: 300
-                        | image_tag:
-                          loading: 'lazy',
-                          alt: product_3.title
-                      }}
-
-                    </div>
-
-                  {% else %}
-
-                    <div class="combo-bottle combo-bottle-purple">
-
-                      <span class="combo-pump"></span>
-                      <span class="combo-label"></span>
-
-                    </div>
-
-                  {% endif %}
-
-
-                  {% if block.settings.product_3_text != blank %}
-
-                    <span>
-                      {{ block.settings.product_3_text }}
-                    </span>
-
-                  {% else %}
-
-                    <span>
-                      {{ product_3.title }}
-                    </span>
-
-                  {% endif %}
-
-                </div>
-
-              {% endif %}
-
-            </div>
-
-          </div>
-
-
-          <!-- =========================
-               CARD BODY
-          ========================== -->
-
-          <div class="combo-card-body">
-
-
-            {% if block.settings.title != blank %}
-
-              <h3>
-                {{ block.settings.title }}
-              </h3>
-
-            {% endif %}
-
-
-            {% if block.settings.product_count != blank %}
-
-              <div class="combo-count">
-                {{ block.settings.product_count }}
-              </div>
-
-            {% elsif product_1 != blank %}
-
-              <div class="combo-count">
-
-                {% assign combo_count = 0 %}
-
-                {% if product_1 != blank %}
-                  {% assign combo_count = combo_count | plus: 1 %}
+                {% if block.settings.badge != blank %}
+                  <span class="pl-combo-badge">
+                    {{ block.settings.badge }}
+                  </span>
                 {% endif %}
 
-                {% if product_2 != blank %}
-                  {% assign combo_count = combo_count | plus: 1 %}
+                {% if block.settings.secondary_badge != blank %}
+                  <span class="pl-combo-badge pl-combo-badge-dark">
+                    {{ block.settings.secondary_badge }}
+                  </span>
                 {% endif %}
-
-                {% if product_3 != blank %}
-                  {% assign combo_count = combo_count | plus: 1 %}
-                {% endif %}
-
-                {{ combo_count }} PRODUCTS
 
               </div>
-
             {% endif %}
 
 
-            {% if block.settings.description != blank %}
+            <!-- DYNAMIC BUNDLE IMAGE -->
+            <div class="pl-combo-image">
 
-              <p>
-                {{ block.settings.description }}
-              </p>
+              {% if block.settings.image != blank %}
 
-            {% endif %}
-
-
-            <!-- PRICE -->
-
-            <div class="combo-price-row">
-
-              {% if block.settings.price != blank %}
-
-                <strong>
-                  {{ block.settings.price }}
-                </strong>
-
-              {% endif %}
-
-
-              {% if block.settings.compare_price != blank %}
-
-                <s>
-                  {{ block.settings.compare_price }}
-                </s>
-
-              {% endif %}
-
-
-              {% if block.settings.savings != blank %}
-
-                <em>
-                  {{ block.settings.savings }}
-                </em>
+                {{
+                  block.settings.image
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '400,600,800,1000,1200',
+                    sizes: '(max-width: 600px) 90vw, (max-width: 1000px) 45vw, 280px',
+                    class: 'pl-combo-image-img',
+                    alt: block.settings.title
+                }}
 
               {% endif %}
 
             </div>
 
 
-            {% if block.settings.fine_print != blank %}
+            <!-- CONTENT -->
+            <div class="pl-combo-content">
 
-              <div class="combo-fine">
-                {{ block.settings.fine_print }}
-              </div>
+              {% if block.settings.title != blank %}
+                <h3 class="pl-combo-card-title">
+                  {{ block.settings.title }}
+                </h3>
+              {% endif %}
 
-            {% endif %}
+              {% if block.settings.product_count != blank %}
+                <p class="pl-combo-count">
+                  {{ block.settings.product_count }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.description != blank %}
+                <p class="pl-combo-card-description">
+                  {{ block.settings.description }}
+                </p>
+              {% endif %}
 
 
-            <!-- BUTTON -->
+              <!-- PRICE -->
+              {% if block.settings.price != blank or block.settings.compare_price != blank or block.settings.saving != blank %}
+                <div class="pl-combo-price">
 
-            {% if block.settings.button_text != blank %}
-
-              <a
-                href="{{ block.settings.button_link | default: '#bundles' }}"
-                class="
-                  combo-button
-                  {% if block.settings.featured %}
-                    combo-button-dark
-                  {% else %}
-                    combo-button-light
+                  {% if block.settings.price != blank %}
+                    <strong>
+                      {{ block.settings.price }}
+                    </strong>
                   {% endif %}
-                "
-              >
 
-                {{ block.settings.button_text }}
+                  {% if block.settings.compare_price != blank %}
+                    <del>
+                      {{ block.settings.compare_price }}
+                    </del>
+                  {% endif %}
 
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
+                  {% if block.settings.saving != blank %}
+                    <span>
+                      {{ block.settings.saving }}
+                    </span>
+                  {% endif %}
+
+                </div>
+              {% endif %}
+
+
+              <!-- TAX -->
+              {% if block.settings.tax_text != blank %}
+                <p class="pl-combo-tax">
+                  {{ block.settings.tax_text }}
+                </p>
+              {% endif %}
+
+
+              <!-- BUTTON -->
+              {% if block.settings.button_text != blank %}
+
+                <a
+                  href="{{ block.settings.button_link | default: '#' }}"
+                  class="pl-combo-button"
                 >
-                  <path d="M5 12h13"/>
-                  <path d="m13 6 6 6-6 6"/>
-                </svg>
+                  {{ block.settings.button_text }}
+                  <span>→</span>
+                </a>
 
-              </a>
+              {% endif %}
 
-            {% endif %}
+            </div>
 
-          </div>
+          </article>
 
-        </article>
+        {% endfor %}
 
-      {% endfor %}
+      </div>
 
     </div>
 
 
-    <!-- SWIPE INDICATOR -->
-
-    {% if section.settings.show_swipe_cue %}
-
-      <div class="combo-swipe-cue">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M5 12h13"/>
-          <path d="m13 6 6 6-6 6"/>
-        </svg>
-
+    <!-- SWIPE TEXT -->
+    {% if section.settings.swipe_text != blank %}
+      <p class="pl-combos-swipe">
+        <span>←</span>
         {{ section.settings.swipe_text }}
-
-      </div>
-
+        <span>→</span>
+      </p>
     {% endif %}
 
 
-    {% if section.settings.note != blank %}
-
-      <p class="combo-note">
-        {{ section.settings.note }}
+    {% if section.settings.bottom_text != blank %}
+      <p class="pl-combos-bottom-text">
+        {{ section.settings.bottom_text }}
       </p>
-
     {% endif %}
 
   </div>
@@ -470,112 +186,781 @@
 </section>
 
 
+<style>
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+#combos {
+  width: 100%;
+}
+
+.pl-combos-section {
+  width: 100%;
+  padding: 90px 0 100px;
+  overflow: hidden;
+}
+
+.pl-combos-container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.pl-combos-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pl-combos-kicker {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #737987;
+  text-transform: uppercase;
+}
+
+.pl-combos-title {
+  margin: 0;
+  font-size: clamp(40px, 5vw, 60px);
+  line-height: 1;
+  font-weight: 900;
+  color: #17132f;
+  text-transform: uppercase;
+}
+
+.pl-combos-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 25px 0;
+}
+
+.pl-combos-divider span:first-child,
+.pl-combos-divider span:last-child {
+  width: 55px;
+  height: 1px;
+  background: rgba(30, 40, 70, 0.2);
+}
+
+.pl-combos-divider span:nth-child(2) {
+  color: #d88918;
+  font-size: 20px;
+}
+
+.pl-combos-description {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #596075;
+}
+
+
+/* =========================================================
+   SLIDER
+   ========================================================= */
+
+.pl-combos-slider {
+  position: relative;
+  width: 100%;
+}
+
+
+/*
+  IMPORTANT:
+  Dynamic horizontal slider.
+  Shopify blocks automatically become slides.
+*/
+
+.pl-combos-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+
+  width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 8px 2px 25px;
+
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+
+  -webkit-overflow-scrolling: touch;
+
+  cursor: grab;
+
+  scrollbar-width: none;
+
+  touch-action: pan-x;
+}
+
+.pl-combos-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-combos-track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.pl-combo-card {
+  position: relative;
+
+  flex: 0 0 calc((100% - 48px) / 4);
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border-radius: 25px;
+
+  border: 1px solid rgba(130, 150, 155, 0.28);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.94),
+      rgba(210,235,228,0.84)
+    );
+
+  box-shadow:
+    0 15px 35px rgba(45, 65, 70, 0.08);
+
+  scroll-snap-align: start;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.pl-combo-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 22px 45px rgba(45, 65, 70, 0.14);
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.pl-combo-badges {
+  position: absolute;
+
+  z-index: 5;
+
+  top: 16px;
+  left: 16px;
+  right: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  pointer-events: none;
+}
+
+.pl-combo-badge {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 28px;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(215, 145, 30, 0.35);
+
+  background: rgba(255,255,255,0.92);
+
+  color: #67952e;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.pl-combo-badge-dark {
+  color: #fff;
+
+  border-color: #087d76;
+
+  background: #087d76;
+}
+
+
+/* =========================================================
+   IMAGE AREA
+   ========================================================= */
+
+.pl-combo-image {
+  position: relative;
+
+  width: 100%;
+  height: 230px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.88),
+      rgba(224,239,237,0.78)
+    );
+
+  border-bottom: 1px solid rgba(100, 120, 130, 0.15);
+
+  box-sizing: border-box;
+}
+
+
+/*
+  Dynamic uploaded image.
+
+  The original image keeps its ratio.
+  It will NEVER stretch outside the card.
+*/
+
+.pl-combo-image-img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.3s ease;
+}
+
+
+/* Small zoom when hovering */
+
+.pl-combo-card:hover .pl-combo-image-img {
+  transform: scale(1.035);
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.pl-combo-content {
+  padding: 18px 16px 16px;
+}
+
+.pl-combo-card-title {
+  margin: 0 0 7px;
+
+  color: #19152f;
+
+  font-size: 18px;
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+.pl-combo-count {
+  margin: 0 0 15px;
+
+  color: #747b87;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+}
+
+.pl-combo-card-description {
+  min-height: 75px;
+
+  margin: 0 0 20px;
+
+  color: #5d6677;
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+
+.pl-combo-price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-bottom: 8px;
+}
+
+.pl-combo-price strong {
+  color: #17132f;
+
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.pl-combo-price del {
+  color: #7b8088;
+
+  font-size: 12px;
+}
+
+.pl-combo-price span {
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(120, 160, 50, 0.35);
+
+  color: #63922d;
+
+  background: rgba(210, 230, 170, 0.3);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   TAX
+   ========================================================= */
+
+.pl-combo-tax {
+  margin: 0 0 15px;
+
+  color: #7b8088;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.pl-combo-button {
+  width: 100%;
+
+  min-height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.92);
+
+  border: 1px solid rgba(120, 140, 150, 0.2);
+
+  color: #075f5b;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.pl-combo-button span {
+  font-size: 18px;
+}
+
+.pl-combo-button:hover {
+  background: #087d76;
+  color: #fff;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SWIPE TEXT
+   ========================================================= */
+
+.pl-combos-swipe {
+  margin: 20px 0 0;
+
+  text-align: center;
+
+  color: #707887;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+
+  user-select: none;
+}
+
+.pl-combos-swipe span {
+  color: #d88918;
+  margin: 0 7px;
+}
+
+.pl-combos-bottom-text {
+  max-width: 800px;
+
+  margin: 15px auto 0;
+
+  text-align: center;
+
+  color: #6d7482;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media screen and (max-width: 1000px) {
+
+  .pl-combo-card {
+    flex: 0 0 calc((100% - 16px) / 2);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 600px) {
+
+  .pl-combos-section {
+    padding: 60px 0 70px;
+  }
+
+  .pl-combos-container {
+    width: calc(100% - 28px);
+  }
+
+  .pl-combos-heading {
+    margin-bottom: 35px;
+  }
+
+  .pl-combos-title {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+
+  .pl-combos-description {
+    font-size: 15px;
+  }
+
+  .pl-combos-track {
+    gap: 14px;
+
+    padding-left: 2px;
+    padding-right: 2px;
+
+    scroll-padding-left: 2px;
+  }
+
+  .pl-combo-card {
+    flex: 0 0 88%;
+  }
+
+  .pl-combo-image {
+    height: 220px;
+  }
+
+  .pl-combo-card-description {
+    min-height: auto;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pl-combos-track {
+    scroll-behavior: auto;
+  }
+
+  .pl-combo-card,
+  .pl-combo-image-img,
+  .pl-combo-button {
+    transition: none;
+  }
+
+}
+
+</style>
+
+
 <script>
+(function () {
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function initComboSlider(section) {
 
-    const sliders = document.querySelectorAll('[data-combo-slider]');
+    const slider = section.querySelector('.pl-combos-track');
 
-    sliders.forEach(function (slider) {
+    if (!slider) return;
 
-      let isDown = false;
-      let startX = 0;
-      let scrollLeft = 0;
+    /*
+      Prevent duplicate initialization
+    */
 
+    if (slider.dataset.initialized === 'true') return;
 
-      /* =========================
-         MOUSE DRAG
-      ========================== */
-
-      slider.addEventListener('mousedown', function (event) {
-
-        isDown = true;
-
-        slider.classList.add('is-dragging');
-
-        startX = event.pageX - slider.offsetLeft;
-
-        scrollLeft = slider.scrollLeft;
-
-      });
+    slider.dataset.initialized = 'true';
 
 
-      slider.addEventListener('mouseleave', function () {
-
-        isDown = false;
-
-        slider.classList.remove('is-dragging');
-
-      });
+    let isDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let moved = false;
 
 
-      slider.addEventListener('mouseup', function () {
+    /*
+      MOUSE DRAG
+      Desktop:
+      click + drag left/right
+    */
 
-        isDown = false;
+    slider.addEventListener('mousedown', function (event) {
 
-        slider.classList.remove('is-dragging');
+      if (event.button !== 0) return;
 
-      });
+      isDown = true;
+      moved = false;
 
+      startX = event.pageX;
+      startScrollLeft = slider.scrollLeft;
 
-      slider.addEventListener('mousemove', function (event) {
-
-        if (!isDown) return;
-
-        event.preventDefault();
-
-        const x = event.pageX - slider.offsetLeft;
-
-        const walk = (x - startX) * 1.4;
-
-        slider.scrollLeft = scrollLeft - walk;
-
-      });
-
-
-      /* =========================
-         MOUSE WHEEL
-      ========================== */
-
-      slider.addEventListener(
-        'wheel',
-        function (event) {
-
-          if (
-            Math.abs(event.deltaY) >
-            Math.abs(event.deltaX)
-          ) {
-
-            event.preventDefault();
-
-            slider.scrollLeft += event.deltaY;
-
-          }
-
-        },
-        {
-          passive: false
-        }
-      );
+      slider.classList.add('is-dragging');
 
     });
 
-  });
 
+    slider.addEventListener('mousemove', function (event) {
+
+      if (!isDown) return;
+
+      const distance = event.pageX - startX;
+
+      if (Math.abs(distance) > 5) {
+        moved = true;
+      }
+
+      slider.scrollLeft = startScrollLeft - distance;
+
+    });
+
+
+    function stopDragging() {
+
+      if (!isDown) return;
+
+      isDown = false;
+
+      slider.classList.remove('is-dragging');
+
+    }
+
+
+    slider.addEventListener('mouseup', stopDragging);
+    slider.addEventListener('mouseleave', stopDragging);
+
+
+    /*
+      TOUCH
+      Mobile automatically supports:
+      swipe left
+      swipe right
+    */
+
+    let touchStartX = 0;
+    let touchStartScroll = 0;
+
+
+    slider.addEventListener(
+      'touchstart',
+      function (event) {
+
+        if (!event.touches.length) return;
+
+        touchStartX = event.touches[0].clientX;
+        touchStartScroll = slider.scrollLeft;
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    slider.addEventListener(
+      'touchmove',
+      function (event) {
+
+        if (!event.touches.length) return;
+
+        const currentX = event.touches[0].clientX;
+        const distance = currentX - touchStartX;
+
+        slider.scrollLeft = touchStartScroll - distance;
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /*
+      Prevent accidental link click after dragging
+    */
+
+    slider.addEventListener(
+      'click',
+      function (event) {
+
+        if (moved) {
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          moved = false;
+
+        }
+
+      },
+      true
+    );
+
+  }
+
+
+  /*
+    Shopify theme editor support
+  */
+
+  function initAllComboSliders() {
+
+    document
+      .querySelectorAll('.pl-combos-section')
+      .forEach(initComboSlider);
+
+  }
+
+
+  if (document.readyState === 'loading') {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      initAllComboSliders
+    );
+
+  } else {
+
+    initAllComboSliders();
+
+  }
+
+
+  /*
+    Shopify Theme Editor
+  */
+
+  document.addEventListener(
+    'shopify:section:load',
+    function (event) {
+
+      const section = event.target;
+
+      if (
+        section &&
+        section.querySelector &&
+        section.querySelector('.pl-combos-section')
+      ) {
+
+        initComboSlider(
+          section.querySelector('.pl-combos-section')
+        );
+
+      }
+
+    }
+  );
+
+})();
 </script>
 
 
 {% schema %}
-
 {
   "name": "Best Selling Combos",
 
   "settings": [
-
-    {
-      "type": "header",
-      "content": "Section content"
-    },
 
     {
       "type": "text",
@@ -588,7 +973,7 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Best selling combos"
+      "default": "Best Selling Combos"
     },
 
     {
@@ -600,187 +985,95 @@
 
     {
       "type": "text",
-      "id": "slider_label",
-      "label": "Slider accessibility label",
-      "default": "Best selling combos"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "show_swipe_cue",
-      "label": "Show swipe cue",
-      "default": true
-    },
-
-    {
-      "type": "text",
       "id": "swipe_text",
-      "label": "Swipe cue text",
-      "default": "SWIPE FOR MORE COMBOS"
+      "label": "Swipe text",
+      "default": "Swipe for more combos"
     },
 
     {
       "type": "textarea",
-      "id": "note",
-      "label": "Bottom note",
-      "default": "Tapping Shop bundle opens the bundle picker with these products already added. You can still swap anything before you pay."
+      "id": "bottom_text",
+      "label": "Bottom text",
+      "default": "Tapping Shop Bundle opens the bundle picker with these products already added. You can still swap anything before you pay."
     }
 
   ],
-
 
   "blocks": [
 
     {
       "type": "combo",
-
-      "name": "Combo",
+      "name": "Bundle",
 
       "settings": [
 
         {
-          "type": "header",
-          "content": "Badge"
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bundle image"
         },
 
         {
           "type": "text",
-          "id": "save_badge",
-          "label": "Save badge",
-          "default": "YOU SAVE ₹398"
+          "id": "badge",
+          "label": "Badge",
+          "default": "You save"
         },
 
         {
           "type": "text",
           "id": "secondary_badge",
-          "label": "Second badge",
-          "default": "MOST POPULAR"
-        },
-
-        {
-          "type": "checkbox",
-          "id": "featured",
-          "label": "Featured / best value card",
-          "default": false
-        },
-
-
-        {
-          "type": "header",
-          "content": "Products"
-        },
-
-        {
-          "type": "product",
-          "id": "product_1",
-          "label": "Product 1"
-        },
-
-        {
-          "type": "text",
-          "id": "product_1_text",
-          "label": "Product 1 description",
-          "default": "Cuts grease instantly"
-        },
-
-        {
-          "type": "product",
-          "id": "product_2",
-          "label": "Product 2"
-        },
-
-        {
-          "type": "text",
-          "id": "product_2_text",
-          "label": "Product 2 description",
-          "default": "Squeaky clean dishes"
-        },
-
-        {
-          "type": "product",
-          "id": "product_3",
-          "label": "Product 3"
-        },
-
-        {
-          "type": "text",
-          "id": "product_3_text",
-          "label": "Product 3 description",
-          "default": "Melts hard water stains"
-        },
-
-
-        {
-          "type": "header",
-          "content": "Combo details"
+          "label": "Secondary badge"
         },
 
         {
           "type": "text",
           "id": "title",
-          "label": "Combo title",
-          "default": "Kitchen Essentials"
+          "label": "Bundle title"
         },
 
         {
           "type": "text",
           "id": "product_count",
-          "label": "Product count",
-          "default": "3 PRODUCTS"
+          "label": "Product count"
         },
 
         {
           "type": "textarea",
           "id": "description",
-          "label": "Combo description",
-          "default": "Everything you need for a sparkling kitchen, no need to pick separately."
-        },
-
-
-        {
-          "type": "header",
-          "content": "Pricing"
+          "label": "Description"
         },
 
         {
           "type": "text",
           "id": "price",
-          "label": "Selling price",
-          "default": "₹499"
+          "label": "Price"
         },
 
         {
           "type": "text",
           "id": "compare_price",
-          "label": "Original price",
-          "default": "₹897"
+          "label": "Compare price"
         },
 
         {
           "type": "text",
-          "id": "savings",
-          "label": "Savings text",
-          "default": "SAVE ₹398"
+          "id": "saving",
+          "label": "Saving"
         },
 
         {
           "type": "text",
-          "id": "fine_print",
-          "label": "Fine print",
+          "id": "tax_text",
+          "label": "Tax text",
           "default": "Inclusive of all taxes · COD available"
-        },
-
-
-        {
-          "type": "header",
-          "content": "Button"
         },
 
         {
           "type": "text",
           "id": "button_text",
           "label": "Button text",
-          "default": "SHOP BUNDLE"
+          "default": "Shop bundle"
         },
 
         {
@@ -795,189 +1088,11 @@
 
   ],
 
-
   "presets": [
-
     {
-      "name": "Best Selling Combos",
-
-      "blocks": [
-
-        {
-          "type": "combo",
-
-          "settings": {
-
-            "save_badge": "YOU SAVE ₹398",
-
-            "secondary_badge": "MOST POPULAR",
-
-            "featured": false,
-
-            "title": "Kitchen Essentials",
-
-            "product_count": "3 PRODUCTS",
-
-            "description": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately.",
-
-            "price": "₹499",
-
-            "compare_price": "₹897",
-
-            "savings": "SAVE ₹398",
-
-            "fine_print": "Inclusive of all taxes · COD available",
-
-            "button_text": "SHOP BUNDLE",
-
-            "button_link": "#bundles"
-
-          }
-
-        },
-
-
-        {
-          "type": "combo",
-
-          "settings": {
-
-            "save_badge": "BIGGEST SAVING",
-
-            "secondary_badge": "BEST VALUE",
-
-            "featured": true,
-
-            "title": "Complete Home Bundle",
-
-            "product_count": "5 PRODUCTS",
-
-            "description": "Includes: Kitchen Cleaner, Laundry Detergent, Floor Cleaner, Toilet Cleaner & Handwash. Our biggest saving box.",
-
-            "price": "₹799",
-
-            "compare_price": "₹1,495",
-
-            "savings": "SAVE ₹696",
-
-            "fine_print": "Inclusive of all taxes · COD available",
-
-            "button_text": "SHOP BUNDLE",
-
-            "button_link": "#bundles"
-
-          }
-
-        },
-
-
-        {
-          "type": "combo",
-
-          "settings": {
-
-            "save_badge": "YOU SAVE ₹398",
-
-            "secondary_badge": "",
-
-            "featured": false,
-
-            "title": "Bathroom Deep Clean",
-
-            "product_count": "3 PRODUCTS",
-
-            "description": "Includes: Toilet Cleaner, Tap Cleaner & Magic Eraser. A complete bathroom refresh in one box.",
-
-            "price": "₹499",
-
-            "compare_price": "₹897",
-
-            "savings": "SAVE ₹398",
-
-            "fine_print": "Inclusive of all taxes · COD available",
-
-            "button_text": "SHOP BUNDLE",
-
-            "button_link": "#bundles"
-
-          }
-
-        },
-
-
-        {
-          "type": "combo",
-
-          "settings": {
-
-            "save_badge": "YOU SAVE ₹249",
-
-            "secondary_badge": "",
-
-            "featured": false,
-
-            "title": "Hard Water Solution Kit",
-
-            "product_count": "2 PRODUCTS",
-
-            "description": "Includes: Tap Cleaner & Toilet Cleaner. A quick, focused fix for hard water stains across the home.",
-
-            "price": "₹349",
-
-            "compare_price": "₹598",
-
-            "savings": "SAVE ₹249",
-
-            "fine_print": "Inclusive of all taxes · COD available",
-
-            "button_text": "SHOP BUNDLE",
-
-            "button_link": "#bundles"
-
-          }
-
-        },
-
-
-        {
-          "type": "combo",
-
-          "settings": {
-
-            "save_badge": "YOU SAVE ₹448",
-
-            "secondary_badge": "",
-
-            "featured": false,
-
-            "title": "Laundry Care Bundle",
-
-            "product_count": "3 PRODUCTS",
-
-            "description": "Includes: Laundry Detergent, Fabric Conditioner & Machine Cleaner Powder. Softer, fresher wash, all in one box.",
-
-            "price": "₹499",
-
-            "compare_price": "₹947",
-
-            "savings": "SAVE ₹448",
-
-            "fine_print": "Inclusive of all taxes · COD available",
-
-            "button_text": "SHOP BUNDLE",
-
-            "button_link": "#bundles"
-
-          }
-
-        }
-
-      ]
-
+      "name": "Best Selling Combos"
     }
-
   ]
 
 }
-
 {% endschema %}

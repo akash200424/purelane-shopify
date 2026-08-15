@@ -13,30 +13,6 @@
         "secondary_link": "#how"
       },
       "blocks": {
-        "badge_1": {
-          "type": "badge",
-          "settings": {
-            "icon": "leaf",
-            "label": "Plant powered",
-            "short_label": "Plant powered"
-          }
-        },
-        "badge_2": {
-          "type": "badge",
-          "settings": {
-            "icon": "shield-check",
-            "label": "Safe for kids & pets",
-            "short_label": "Kids & pet safe"
-          }
-        },
-        "badge_3": {
-          "type": "badge",
-          "settings": {
-            "icon": "no-chemicals",
-            "label": "Zero harsh chemicals",
-            "short_label": "Zero harsh chem"
-          }
-        },
         "slide_1": {
           "type": "hero_slide",
           "settings": {
@@ -56,14 +32,7 @@
           }
         }
       },
-      "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "slide_1",
-        "slide_2",
-        "slide_3"
-      ]
+      "block_order": ["slide_1", "slide_2", "slide_3"]
     },
 
     "reviews": {
@@ -130,9 +99,93 @@
       ]
     },
 
-    "ingrediants": {
-      "type": "ingrediants",
-      "settings": {}
+    "ingredients": {
+      "type": "ingredients",
+      "settings": {
+        "nature_heading": "SOURCED FROM NATURE"
+      },
+      "blocks": {
+        "ingredient_1": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "coconut",
+            "title": "COCONUT",
+            "description": "Plant-derived cleansers that lift grease"
+          }
+        },
+        "ingredient_2": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "orange",
+            "title": "ORANGE PEEL",
+            "description": "Natural degreaser and fresh citrus lift"
+          }
+        },
+        "ingredient_3": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "soap_nut",
+            "title": "SOAP NUT",
+            "description": "A traditional plant foaming agent"
+          }
+        },
+        "ingredient_4": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "neem",
+            "title": "NEEM",
+            "description": "Time-tested antibacterial from the tree"
+          }
+        },
+        "ingredient_5": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "lemongrass",
+            "title": "LEMONGRASS",
+            "description": "Clean fragrance with nothing synthetic"
+          }
+        },
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "scrubbing",
+            "title": "LESS SCRUBBING",
+            "description": "A foaming formulation. The foam clings to grease and lifts it, so you wipe instead of scrub.",
+            "button_text": "LEARN MORE",
+            "button_link": "/pages/how-it-works"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "title": "CLEAN INGREDIENTS",
+            "description": "No sulphates, no chlorine, no synthetic fragrance. Nothing on the label you would not want near your food.",
+            "button_text": "LEARN MORE",
+            "button_link": "/pages/ingredients"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "heart",
+            "title": "SAFE AROUND EVERYONE",
+            "description": "Gentle on hands, safe around kids and pets, and it leaves no toxic residue on the surfaces you touch every day.",
+            "button_text": "LEARN MORE",
+            "button_link": "/pages/how-it-works"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_1",
+        "ingredient_2",
+        "ingredient_3",
+        "ingredient_4",
+        "ingredient_5",
+        "benefit_1",
+        "benefit_2",
+        "benefit_3"
+      ]
     },
 
     "how_it_works": {
@@ -146,8 +199,114 @@
         "kicker": "Pre-built to save you money",
         "heading": "Best selling combos",
         "description": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own.",
+        "slider_label": "Best selling combos",
+        "show_swipe_cue": true,
+        "swipe_text": "SWIPE FOR MORE COMBOS",
         "note": "Tapping Shop bundle opens the bundle picker with these products already added. You can still swap anything before you pay."
-      }
+      },
+      "blocks": {
+        "combo_1": {
+          "type": "combo",
+          "settings": {
+            "save_badge": "YOU SAVE ₹398",
+            "secondary_badge": "MOST POPULAR",
+            "featured": false,
+            "product_1_text": "Cuts grease instantly",
+            "product_2_text": "Squeaky clean dishes",
+            "product_3_text": "Melts hard water stains",
+            "title": "Kitchen Essentials",
+            "product_count": "3 PRODUCTS",
+            "description": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately.",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "savings": "SAVE ₹398",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "button_text": "SHOP BUNDLE",
+            "button_link": "#bundles"
+          }
+        },
+        "combo_2": {
+          "type": "combo",
+          "settings": {
+            "save_badge": "BIGGEST SAVING",
+            "secondary_badge": "BEST VALUE",
+            "featured": true,
+            "product_1_text": "Kitchen cleaner",
+            "product_2_text": "Laundry detergent",
+            "product_3_text": "Floor cleaner",
+            "title": "Complete Home Bundle",
+            "product_count": "5 PRODUCTS",
+            "description": "Includes: Kitchen Cleaner, Laundry Detergent, Floor Cleaner, Toilet Cleaner & Handwash. Our biggest saving box.",
+            "price": "₹799",
+            "compare_price": "₹1,495",
+            "savings": "SAVE ₹696",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "button_text": "SHOP BUNDLE",
+            "button_link": "#bundles"
+          }
+        },
+        "combo_3": {
+          "type": "combo",
+          "settings": {
+            "save_badge": "YOU SAVE ₹398",
+            "secondary_badge": "",
+            "featured": false,
+            "product_1_text": "Toilet cleaner",
+            "product_2_text": "Tap cleaner",
+            "product_3_text": "Magic eraser",
+            "title": "Bathroom Deep Clean",
+            "product_count": "3 PRODUCTS",
+            "description": "Includes: Toilet Cleaner, Tap Cleaner & Magic Eraser. A complete bathroom refresh in one box.",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "savings": "SAVE ₹398",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "button_text": "SHOP BUNDLE",
+            "button_link": "#bundles"
+          }
+        },
+        "combo_4": {
+          "type": "combo",
+          "settings": {
+            "save_badge": "YOU SAVE ₹249",
+            "secondary_badge": "",
+            "featured": false,
+            "product_1_text": "Tap cleaner",
+            "product_2_text": "Toilet cleaner",
+            "product_3_text": "",
+            "title": "Hard Water Solution Kit",
+            "product_count": "2 PRODUCTS",
+            "description": "Includes: Tap Cleaner & Toilet Cleaner. A quick, focused fix for hard water stains across the home.",
+            "price": "₹349",
+            "compare_price": "₹598",
+            "savings": "SAVE ₹249",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "button_text": "SHOP BUNDLE",
+            "button_link": "#bundles"
+          }
+        },
+        "combo_5": {
+          "type": "combo",
+          "settings": {
+            "save_badge": "YOU SAVE ₹448",
+            "secondary_badge": "",
+            "featured": false,
+            "product_1_text": "Laundry detergent",
+            "product_2_text": "Fabric conditioner",
+            "product_3_text": "Machine cleaner",
+            "title": "Laundry Care Bundle",
+            "product_count": "3 PRODUCTS",
+            "description": "Includes: Laundry Detergent, Fabric Conditioner & Machine Cleaner Powder. Softer, fresher wash, all in one box.",
+            "price": "₹499",
+            "compare_price": "₹947",
+            "savings": "SAVE ₹448",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "button_text": "SHOP BUNDLE",
+            "button_link": "#bundles"
+          }
+        }
+      },
+      "block_order": ["combo_1", "combo_2", "combo_3", "combo_4", "combo_5"]
     },
 
     "bundles": {
@@ -156,7 +315,55 @@
         "kicker": "Build your bundle",
         "heading": "One box. Every room.",
         "description": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
-      }
+      },
+      "blocks": {
+        "bundle_1": {
+          "type": "bundle",
+          "settings": {
+            "badge": "STARTER",
+            "featured": false,
+            "product_count": "2",
+            "product_count_label": "PRODUCTS",
+            "price": "₹349",
+            "compare_price": "₹598",
+            "per_product": "Flat ₹174 per product",
+            "features": "Pick any two products\nFree shipping across India",
+            "button_text": "BUILD THIS BOX",
+            "button_link": "#shop"
+          }
+        },
+        "bundle_2": {
+          "type": "bundle",
+          "settings": {
+            "badge": "MOST POPULAR",
+            "featured": true,
+            "product_count": "3",
+            "product_count_label": "PRODUCTS",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "per_product": "Flat ₹166 per product",
+            "features": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India",
+            "button_text": "BUILD THIS BOX",
+            "button_link": "#shop"
+          }
+        },
+        "bundle_3": {
+          "type": "bundle",
+          "settings": {
+            "badge": "WHOLE HOME",
+            "featured": false,
+            "product_count": "5",
+            "product_count_label": "PRODUCTS",
+            "price": "₹799",
+            "compare_price": "₹1495",
+            "per_product": "Flat ₹160 per product",
+            "features": "Pick any five products\nEvery room in one order\nFree shipping across India",
+            "button_text": "BUILD THIS BOX",
+            "button_link": "#shop"
+          }
+        }
+      },
+      "block_order": ["bundle_1", "bundle_2", "bundle_3"]
     },
 
     "shop": {
@@ -170,14 +377,105 @@
 
     "bundle_categories": {
       "type": "bundle-categories",
-      "settings": {}
+      "settings": {
+        "kicker": "BUNDLE CATEGORIES",
+        "heading": "FIND THE RIGHT BUNDLE FOR YOU",
+        "show_club": true,
+        "club_kicker": "JOIN THE PURELANE CLUB",
+        "club_heading": "GET ₹100 OFF YOUR FIRST BUNDLE",
+        "club_description": "Plus first access to new launches and restocks.",
+        "email_placeholder": "your@email.com",
+        "email_label": "Email address",
+        "club_button": "GET MY ₹100 OFF",
+        "customer_tag": "purelane-club"
+      },
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "title": "KITCHEN BUNDLE",
+            "description": "Grease, dishes & more",
+            "bottle_style": "pl-bottle-large",
+            "link": "#combos"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "title": "BATHROOM BUNDLE",
+            "description": "Deep clean & disinfect",
+            "bottle_style": "pl-bottle-medium",
+            "link": "#combos"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "title": "LAUNDRY BUNDLE",
+            "description": "Softer, fresher wash",
+            "bottle_style": "pl-bottle-dark",
+            "link": "#combos"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "title": "HARD WATER BUNDLE",
+            "description": "Melt away limescale",
+            "bottle_style": "pl-bottle-medium",
+            "link": "#combos"
+          }
+        },
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "line_one": "PLANT DERIVED",
+            "line_two": "FORMULAS",
+            "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 21c0-6.5 3.5-11 8-12.5C20 15.5 16.5 20 12 21Z\"/><path d=\"M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z\"/></svg>"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "line_one": "RECYCLABLE",
+            "line_two": "PACKAGING",
+            "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 7h14v13H5z\"/><path d=\"M8 7V4h8v3\"/><path d=\"M8 12h8\"/></svg>"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "line_one": "SAFE FOR",
+            "line_two": "KIDS & PETS",
+            "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z\"/></svg>"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "line_one": "MADE IN",
+            "line_two": "INDIA",
+            "icon": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M4 12h16\"/><path d=\"M12 4c2.5 2.2 3.5 5 3.5 8s-1 5.8-3.5 8\"/><path d=\"M12 4c-2.5-2.2-3.5-5-3.5-8s1-5.8-3.5-8\"/></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ]
     }
   },
 
   "order": [
     "hero",
     "reviews",
-    "ingrediants",
+    "ingredients",
     "how_it_works",
     "combos",
     "bundles",

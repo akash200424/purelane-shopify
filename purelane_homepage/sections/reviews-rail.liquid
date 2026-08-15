@@ -1,338 +1,616 @@
-<section
-  class="sec revband"
-  id="reviews"
-  data-scene="1"
->
+<section class="reviews-section" id="reviews-{{ section.id }}">
 
-  <div class="wrap">
+  <!-- TOP RATING BAR -->
+  <div class="reviews-header">
 
-    <div class="revhead rv">
+    <span class="reviews-label">
+      THAT'S WHAT THEY SAID
+    </span>
 
-      {% if section.settings.kicker != blank %}
-        <span class="kicker">
-          {{ section.settings.kicker }}
-        </span>
-      {% endif %}
+    <div class="reviews-rating">
+      <span class="reviews-stars">★★★★★</span>
+      <strong>4.8</strong>
+      <span>FROM 8,000+ REVIEWS</span>
+    </div>
 
+    <span class="reviews-loved">
+      LOVED BY <strong>12 LAKH+</strong> HOMES
+    </span>
 
-      {% if section.settings.rating != blank or section.settings.rating_text != blank %}
-
-        <span class="agg">
-
-          {% if section.settings.show_stars %}
-            <span
-              class="st"
-              aria-label="{{ section.settings.rating }} out of 5 stars"
-            >
-              ★★★★★
-            </span>
-          {% endif %}
-
-          {% if section.settings.rating != blank %}
-            <b>
-              {{ section.settings.rating }}
-            </b>
-          {% endif %}
-
-          {% if section.settings.rating_text != blank %}
-            {{ section.settings.rating_text }}
-          {% endif %}
-
-        </span>
-
-      {% endif %}
+  </div>
 
 
-      {% if section.settings.homes != blank %}
+  <!-- MOVING REVIEW TRACK -->
+  <div class="reviews-window">
 
-        <span class="agg">
+    <div class="reviews-track">
 
-          {% if section.settings.homes_prefix != blank %}
-            {{ section.settings.homes_prefix }}
-          {% endif %}
+      <!-- FIRST SET -->
+      {% for block in section.blocks %}
 
-          <b>
-            {{ section.settings.homes }}
-          </b>
+        <article
+          class="review-card"
+          {{ block.shopify_attributes }}
+        >
 
-          {% if section.settings.homes_suffix != blank %}
-            {{ section.settings.homes_suffix }}
-          {% endif %}
+          <div class="review-stars">
+            ★★★★★
+          </div>
 
-        </span>
+          <h3>
+            {{ block.settings.title }}
+          </h3>
 
-      {% endif %}
+          <p>
+            {{ block.settings.text }}
+          </p>
+
+          <div class="review-author">
+            <span>✓</span>
+            <strong>{{ block.settings.name }}</strong>
+
+            {% if block.settings.product != blank %}
+              <span>·</span>
+              <span>{{ block.settings.product }}</span>
+            {% endif %}
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+
+      <!-- DUPLICATED SET FOR SEAMLESS LOOP -->
+      {% for block in section.blocks %}
+
+        <article
+          class="review-card"
+          aria-hidden="true"
+        >
+
+          <div class="review-stars">
+            ★★★★★
+          </div>
+
+          <h3>
+            {{ block.settings.title }}
+          </h3>
+
+          <p>
+            {{ block.settings.text }}
+          </p>
+
+          <div class="review-author">
+            <span>✓</span>
+            <strong>{{ block.settings.name }}</strong>
+
+            {% if block.settings.product != blank %}
+              <span>·</span>
+              <span>{{ block.settings.product }}</span>
+            {% endif %}
+          </div>
+
+        </article>
+
+      {% endfor %}
 
     </div>
 
   </div>
 
-
-  {% if section.blocks.size > 0 %}
-
-    <div
-      class="revrail rv"
-      aria-label="{{ section.settings.rail_aria_label | escape }}"
-    >
-
-      <div class="revtrack">
-
-
-        <!-- =================================================
-             ORIGINAL REVIEWS
-        ================================================== -->
-
-        {% for block in section.blocks %}
-
-          <article
-            class="glass-2 rcard"
-            {{ block.shopify_attributes }}
-          >
-
-            {% if section.settings.show_review_stars %}
-
-              <div
-                class="st"
-                aria-label="{{ block.settings.rating }} out of 5 stars"
-              >
-                ★★★★★
-              </div>
-
-            {% endif %}
-
-
-            {% if block.settings.title != blank %}
-
-              <h5>
-                {{ block.settings.title }}
-              </h5>
-
-            {% endif %}
-
-
-            {% if block.settings.review != blank %}
-
-              <p>
-                {{ block.settings.review }}
-              </p>
-
-            {% endif %}
-
-
-            <div class="who">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m5 13 4 4L19 7"/>
-              </svg>
-
-
-              {% if block.settings.name != blank %}
-
-                <b>
-                  {{ block.settings.name }}
-                </b>
-
-              {% endif %}
-
-
-              {% if block.settings.product != blank %}
-
-                <span>
-                  · {{ block.settings.product }}
-                </span>
-
-              {% endif %}
-
-            </div>
-
-          </article>
-
-        {% endfor %}
-
-
-
-        <!-- =================================================
-             DUPLICATE REVIEWS
-             
-             This duplicate set is intentional.
-             It allows the CSS/JS rail animation to loop
-             continuously without a visible gap.
-        ================================================== -->
-
-        {% for block in section.blocks %}
-
-          <article
-            class="glass-2 rcard"
-            aria-hidden="true"
-          >
-
-            {% if section.settings.show_review_stars %}
-
-              <div class="st">
-                ★★★★★
-              </div>
-
-            {% endif %}
-
-
-            {% if block.settings.title != blank %}
-
-              <h5>
-                {{ block.settings.title }}
-              </h5>
-
-            {% endif %}
-
-
-            {% if block.settings.review != blank %}
-
-              <p>
-                {{ block.settings.review }}
-              </p>
-
-            {% endif %}
-
-
-            <div class="who">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m5 13 4 4L19 7"/>
-              </svg>
-
-
-              {% if block.settings.name != blank %}
-
-                <b>
-                  {{ block.settings.name }}
-                </b>
-
-              {% endif %}
-
-
-              {% if block.settings.product != blank %}
-
-                <span>
-                  · {{ block.settings.product }}
-                </span>
-
-              {% endif %}
-
-            </div>
-
-          </article>
-
-        {% endfor %}
-
-      </div>
-
-    </div>
-
-  {% endif %}
-
 </section>
+
+
+<style>
+
+/* =========================================================
+   PURELANE REVIEWS
+========================================================= */
+
+.reviews-section {
+  position: relative;
+
+  width: 100%;
+
+  padding: 40px 0 70px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #dff4e8 0%,
+      #c9ead9 48%,
+      #b8dfce 100%
+    );
+}
+
+
+/* =========================================================
+   TOP RATING
+========================================================= */
+
+.reviews-header {
+
+  width: 100%;
+
+  min-height: 28px;
+
+  padding: 0 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  box-sizing: border-box;
+
+  color: #666b7c;
+
+  font-size: 11px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.17em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+}
+
+.reviews-rating {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+}
+
+.reviews-stars {
+
+  color: #6c9228;
+
+  font-size: 13px;
+
+  letter-spacing: 2px;
+
+}
+
+.reviews-rating strong {
+
+  color: #c47a0b;
+
+  font-size: 14px;
+
+}
+
+.reviews-loved strong {
+
+  color: #bd7109;
+
+}
+
+
+/* =========================================================
+   VIEWPORT
+========================================================= */
+
+.reviews-window {
+
+  position: relative;
+
+  width: 100%;
+
+  margin-top: 20px;
+
+  overflow: hidden;
+
+}
+
+
+/* =========================================================
+   MOVING TRACK
+========================================================= */
+
+.reviews-track {
+
+  display: flex;
+
+  width: max-content;
+
+  gap: 14px;
+
+  padding: 0;
+
+  margin: 0;
+
+  animation:
+    reviewsInfiniteScroll 34s linear infinite;
+
+  will-change: transform;
+
+}
+
+
+/* =========================================================
+   INFINITE ANIMATION
+========================================================= */
+
+@keyframes reviewsInfiniteScroll {
+
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+}
+
+
+/* Pause when mouse is over reviews */
+
+.reviews-window:hover .reviews-track {
+
+  animation-play-state: paused;
+
+}
+
+
+/* =========================================================
+   REVIEW CARD
+========================================================= */
+
+.review-card {
+
+  position: relative;
+
+  flex: 0 0 280px;
+
+  width: 280px;
+
+  min-height: 165px;
+
+  box-sizing: border-box;
+
+  padding: 21px 18px 17px;
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  box-shadow:
+    0 8px 25px rgba(42, 91, 70, 0.07);
+
+  backdrop-filter: blur(13px);
+
+  -webkit-backdrop-filter: blur(13px);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+}
+
+
+/* subtle card hover */
+
+.review-card:hover {
+
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 16px 35px rgba(42, 91, 70, 0.13);
+
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.review-card .review-stars {
+
+  margin-bottom: 11px;
+
+  color: #6c9228;
+
+  font-size: 11px;
+
+  line-height: 1;
+
+  letter-spacing: 2px;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.review-card h3 {
+
+  margin: 0 0 8px;
+
+  color: #191631;
+
+  font-size: 13px;
+
+  line-height: 1.3;
+
+  font-weight: 900;
+
+  letter-spacing: 0;
+
+  text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   REVIEW TEXT
+========================================================= */
+
+.review-card p {
+
+  margin: 0 0 14px;
+
+  color: #5a6075;
+
+  font-size: 12.5px;
+
+  line-height: 1.48;
+
+  font-weight: 400;
+
+}
+
+
+/* =========================================================
+   AUTHOR
+========================================================= */
+
+.review-author {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: #3f611e;
+
+  font-size: 9px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+}
+
+.review-author span:first-child {
+
+  color: #639122;
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+}
+
+
+/* =========================================================
+   SIDE FADE
+   Creates the same partially visible cards
+========================================================= */
+
+.reviews-window::before,
+.reviews-window::after {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  bottom: 0;
+
+  width: 70px;
+
+  z-index: 5;
+
+  pointer-events: none;
+
+}
+
+.reviews-window::before {
+
+  left: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(205, 235, 218, 0.85),
+      transparent
+    );
+
+}
+
+.reviews-window::after {
+
+  right: 0;
+
+  background:
+    linear-gradient(
+      270deg,
+      rgba(205, 235, 218, 0.85),
+      transparent
+    );
+
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1200px) {
+
+  .reviews-section {
+
+    padding-top: 38px;
+
+  }
+
+  .review-card {
+
+    flex-basis: 280px;
+
+    width: 280px;
+
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .reviews-header {
+
+    flex-wrap: wrap;
+
+    white-space: normal;
+
+    gap: 8px 12px;
+
+    text-align: center;
+
+  }
+
+  .reviews-track {
+
+    animation-duration: 28s;
+
+  }
+
+  .review-card {
+
+    flex-basis: 280px;
+
+    width: 280px;
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .reviews-section {
+
+    padding: 30px 0 55px;
+
+  }
+
+  .reviews-header {
+
+    width: calc(100% - 30px);
+
+    margin: 0 auto;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    font-size: 9px;
+
+    line-height: 1.3;
+
+  }
+
+  .reviews-rating {
+
+    gap: 6px;
+
+  }
+
+  .reviews-track {
+
+    gap: 12px;
+
+    animation-duration: 24s;
+
+  }
+
+  .review-card {
+
+    flex-basis: 270px;
+
+    width: 270px;
+
+    min-height: 165px;
+
+  }
+
+  .reviews-window::before,
+  .reviews-window::after {
+
+    width: 35px;
+
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .reviews-track {
+
+    animation: none;
+
+  }
+
+}
+
+</style>
 
 
 {% schema %}
 
 {
-  "name": "Purelane Reviews Rail",
+  "name": "Reviews",
 
-  "max_blocks": 12,
-
-  "settings": [
-
-    {
-      "type": "header",
-      "content": "Review summary"
-    },
-
-    {
-      "type": "text",
-      "id": "kicker",
-      "label": "Kicker",
-      "default": "That's what they said"
-    },
-
-    {
-      "type": "text",
-      "id": "rating",
-      "label": "Overall rating",
-      "default": "4.8"
-    },
-
-    {
-      "type": "text",
-      "id": "rating_text",
-      "label": "Rating description",
-      "default": "from 8,000+ reviews"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "show_stars",
-      "label": "Show summary stars",
-      "default": true
-    },
-
-    {
-      "type": "text",
-      "id": "homes_prefix",
-      "label": "Homes prefix",
-      "default": "Loved by"
-    },
-
-    {
-      "type": "text",
-      "id": "homes",
-      "label": "Homes count",
-      "default": "12 lakh+"
-    },
-
-    {
-      "type": "text",
-      "id": "homes_suffix",
-      "label": "Homes suffix",
-      "default": "homes"
-    },
-
-
-    {
-      "type": "header",
-      "content": "Review cards"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "show_review_stars",
-      "label": "Show review stars",
-      "default": true
-    },
-
-    {
-      "type": "text",
-      "id": "rail_aria_label",
-      "label": "Reviews rail accessibility label",
-      "default": "Customer reviews"
-    }
-
-  ],
-
+  "settings": [],
 
   "blocks": [
 
@@ -347,51 +625,39 @@
           "type": "text",
           "id": "title",
           "label": "Review title",
-          "default": "Works like a charm"
+          "default": "Great product, great packaging"
         },
 
         {
           "type": "textarea",
-          "id": "review",
-          "label": "Review",
-          "default": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better."
+          "id": "text",
+          "label": "Review text",
+          "default": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic."
         },
 
         {
           "type": "text",
           "id": "name",
           "label": "Customer name",
-          "default": "Anita"
+          "default": "Sunita"
         },
 
         {
           "type": "text",
           "id": "product",
           "label": "Product",
-          "default": "Laundry detergent"
-        },
-
-        {
-          "type": "range",
-          "id": "rating",
-          "label": "Rating",
-          "min": 1,
-          "max": 5,
-          "step": 1,
-          "default": 5
+          "default": "Liquid Handwash"
         }
 
       ]
-
     }
 
   ],
 
-
   "presets": [
 
     {
-      "name": "Purelane Reviews Rail",
+      "name": "Reviews",
 
       "blocks": [
 
@@ -399,39 +665,11 @@
           "type": "review",
 
           "settings": {
-            "title": "Works like a charm",
-            "review": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
-            "name": "Anita",
-            "product": "Laundry detergent",
-            "rating": 5
-          }
-
-        },
-
-        {
-          "type": "review",
-
-          "settings": {
-            "title": "Best dishwash ever",
-            "review": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
-            "name": "Priya",
-            "product": "Dishwash gel",
-            "rating": 5
-          }
-
-        },
-
-        {
-          "type": "review",
-
-          "settings": {
             "title": "Great product, great packaging",
-            "review": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "text": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
             "name": "Sunita",
-            "product": "Liquid handwash",
-            "rating": 5
+            "product": "Liquid Handwash"
           }
-
         },
 
         {
@@ -439,12 +677,10 @@
 
           "settings": {
             "title": "Dog friendly",
-            "review": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "text": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
             "name": "Rohit S.",
-            "product": "Floor cleaner",
-            "rating": 5
+            "product": "Floor Cleaner"
           }
-
         },
 
         {
@@ -452,16 +688,35 @@
 
           "settings": {
             "title": "Sparkling taps again",
-            "review": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
-            "name": "Verified buyer",
-            "product": "Tap cleaner",
-            "rating": 5
+            "text": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "name": "Verified Buyer",
+            "product": "Tap Cleaner"
           }
+        },
 
+        {
+          "type": "review",
+
+          "settings": {
+            "title": "Works like a charm",
+            "text": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "name": "Anita",
+            "product": "Laundry Detergent"
+          }
+        },
+
+        {
+          "type": "review",
+
+          "settings": {
+            "title": "Best dishwash ever",
+            "text": "It cleans beautifully without leaving my hands dry. The fragrance is subtle and refreshing.",
+            "name": "Priya",
+            "product": "Dishwash Gel"
+          }
         }
 
       ]
-
     }
 
   ]

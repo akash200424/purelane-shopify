@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
+
   <head>
+
     <meta charset="utf-8">
 
     <meta
@@ -15,12 +17,15 @@
 
     <title>
       {{ page_title }}
+
       {% if current_tags %}
         – {{ current_tags | join: ', ' }}
       {% endif %}
+
       {% if current_page != 1 %}
         – Page {{ current_page }}
       {% endif %}
+
       {% unless page_title contains shop.name %}
         – {{ shop.name }}
       {% endunless %}
@@ -33,21 +38,55 @@
       >
     {% endif %}
 
+    {% if settings.favicon != blank %}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {% endif %}
+
     {{ content_for_header }}
 
     {{ 'purelane.css' | asset_url | stylesheet_tag }}
 
     <script
       src="{{ 'purelane.js' | asset_url }}"
-      defer="defer"
+      defer
     ></script>
+
   </head>
 
   <body>
 
-    {{ content_for_layout }}
+    <!-- =========================================
+         PURELANE GLOBAL HEADER
+         ========================================= -->
+
+    {% section 'header' %}
+
+
+    <!-- =========================================
+         MAIN CONTENT
+         ========================================= -->
+
+    <main
+      id="MainContent"
+      role="main"
+      tabindex="-1"
+    >
+
+      {{ content_for_layout }}
+
+    </main>
+
+
+    <!-- =========================================
+         PURELANE GLOBAL FOOTER
+         ========================================= -->
 
     {% sections 'footer-group' %}
 
   </body>
+
 </html>

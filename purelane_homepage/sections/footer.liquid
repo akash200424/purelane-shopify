@@ -1,3 +1,227 @@
+<style>
+  .pl-footer {
+    width: 100%;
+    background: #dff4e9;
+    color: #55566f;
+  }
+
+  .pl-footer-container {
+    width: min(1140px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+
+  .pl-footer-main {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 70px;
+    padding: 58px 0 70px;
+  }
+
+  /* BRAND */
+
+  .pl-footer-brand {
+    max-width: 330px;
+  }
+
+  .pl-footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .pl-footer-logo-image {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  .pl-footer-logo-mark {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(40, 80, 70, 0.18);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7cae31;
+    flex-shrink: 0;
+  }
+
+  .pl-footer-logo-mark svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .pl-footer-wordmark {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pl-footer-wordmark strong {
+    color: #24203f;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .pl-footer-wordmark span {
+    margin-top: 5px;
+    color: #9292a5;
+    font-size: 8px;
+    line-height: 1;
+    letter-spacing: 2.2px;
+    font-weight: 600;
+  }
+
+  .pl-footer-description {
+    margin: 0;
+    max-width: 310px;
+    color: #60627b;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* COLUMNS */
+
+  .pl-footer-column h3 {
+    margin: 5px 0 22px;
+    color: #64952d;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+  }
+
+  .pl-footer-column ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pl-footer-column li {
+    margin: 0 0 15px;
+  }
+
+  .pl-footer-column a {
+    color: #64667c;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .pl-footer-column a:hover {
+    color: #007c72;
+  }
+
+  .pl-footer-contact-link {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .pl-footer-company {
+    margin: 4px 0 0;
+    color: #7d7f91;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* BOTTOM */
+
+  .pl-footer-bottom {
+    min-height: 70px;
+    border-top: 1px solid rgba(70, 100, 90, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .pl-footer-copyright {
+    margin: 0;
+    color: #7c8190;
+    font-size: 12px;
+  }
+
+  .pl-footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pl-footer-legal a,
+  .pl-footer-legal span {
+    color: #7c8190;
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .pl-footer-legal a:hover {
+    color: #007c72;
+  }
+
+  /* TABLET */
+
+  @media screen and (max-width: 900px) {
+    .pl-footer-main {
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 45px;
+    }
+
+    .pl-footer-contact {
+      grid-column: 2 / 4;
+    }
+  }
+
+  /* MOBILE */
+
+  @media screen and (max-width: 640px) {
+    .pl-footer-container {
+      width: min(100% - 32px, 500px);
+    }
+
+    .pl-footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 25px;
+      padding: 45px 0 50px;
+    }
+
+    .pl-footer-brand {
+      grid-column: 1 / -1;
+      max-width: 100%;
+    }
+
+    .pl-footer-contact {
+      grid-column: auto;
+    }
+
+    .pl-footer-description {
+      max-width: 100%;
+    }
+
+    .pl-footer-column h3 {
+      margin-bottom: 18px;
+    }
+
+    .pl-footer-bottom {
+      min-height: auto;
+      padding: 22px 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .pl-footer-legal {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+
 <footer class="pl-footer">
 
   <div class="pl-footer-container">
@@ -12,11 +236,12 @@
           {% if section.settings.logo != blank %}
 
             <img
-              src="{{ section.settings.logo | image_url: width: 220 }}"
-              alt="{{ shop.name | escape }}"
+              class="pl-footer-logo-image"
+              src="{{ section.settings.logo | image_url: width: 160 }}"
+              alt="{{ section.settings.brand_name | escape }}"
+              width="44"
+              height="44"
               loading="lazy"
-              width="{{ section.settings.logo.width }}"
-              height="{{ section.settings.logo.height }}"
             >
 
           {% else %}
@@ -38,25 +263,33 @@
               </svg>
             </div>
 
-            <div class="pl-footer-wordmark">
+          {% endif %}
+
+          <div class="pl-footer-wordmark">
+
+            {% if section.settings.brand_name != blank %}
               <strong>
                 {{ section.settings.brand_name }}
               </strong>
+            {% endif %}
 
+            {% if section.settings.brand_tagline != blank %}
               <span>
                 {{ section.settings.brand_tagline }}
               </span>
-            </div>
+            {% endif %}
 
-          {% endif %}
+          </div>
 
         </div>
 
 
         {% if section.settings.brand_description != blank %}
+
           <p class="pl-footer-description">
             {{ section.settings.brand_description }}
           </p>
+
         {% endif %}
 
       </div>
@@ -65,9 +298,11 @@
       <!-- SHOP -->
       <div class="pl-footer-column">
 
-        <h3>
-          {{ section.settings.shop_heading }}
-        </h3>
+        {% if section.settings.shop_heading != blank %}
+          <h3>
+            {{ section.settings.shop_heading }}
+          </h3>
+        {% endif %}
 
         {% if section.settings.shop_menu != blank %}
 
@@ -93,9 +328,11 @@
       <!-- ABOUT -->
       <div class="pl-footer-column">
 
-        <h3>
-          {{ section.settings.about_heading }}
-        </h3>
+        {% if section.settings.about_heading != blank %}
+          <h3>
+            {{ section.settings.about_heading }}
+          </h3>
+        {% endif %}
 
         {% if section.settings.about_menu != blank %}
 
@@ -121,9 +358,11 @@
       <!-- CONTACT -->
       <div class="pl-footer-column pl-footer-contact">
 
-        <h3>
-          {{ section.settings.contact_heading }}
-        </h3>
+        {% if section.settings.contact_heading != blank %}
+          <h3>
+            {{ section.settings.contact_heading }}
+          </h3>
+        {% endif %}
 
 
         {% if section.settings.email != blank %}
@@ -164,6 +403,7 @@
 
 
     <!-- BOTTOM -->
+
     <div class="pl-footer-bottom">
 
       <p class="pl-footer-copyright">
@@ -224,20 +464,17 @@
     {
       "type": "text",
       "id": "brand_name",
-      "label": "Brand name",
-      "default": "PURELANE"
+      "label": "Brand name"
     },
     {
       "type": "text",
       "id": "brand_tagline",
-      "label": "Brand tagline",
-      "default": "CLEAN, SIMPLY"
+      "label": "Brand tagline"
     },
     {
       "type": "textarea",
       "id": "brand_description",
-      "label": "Brand description",
-      "default": "Effective cleaning, powered by nature. Made for Indian homes since day one."
+      "label": "Brand description"
     },
 
     {
@@ -247,8 +484,7 @@
     {
       "type": "text",
       "id": "shop_heading",
-      "label": "Shop heading",
-      "default": "SHOP"
+      "label": "Shop heading"
     },
     {
       "type": "link_list",
@@ -263,8 +499,7 @@
     {
       "type": "text",
       "id": "about_heading",
-      "label": "About heading",
-      "default": "ABOUT"
+      "label": "About heading"
     },
     {
       "type": "link_list",
@@ -279,8 +514,7 @@
     {
       "type": "text",
       "id": "contact_heading",
-      "label": "Contact heading",
-      "default": "GET IN TOUCH"
+      "label": "Contact heading"
     },
     {
       "type": "text",
@@ -305,8 +539,7 @@
     {
       "type": "text",
       "id": "copyright_text",
-      "label": "Copyright text",
-      "default": "© 2026 Purelane Eco Products Private Limited"
+      "label": "Copyright text"
     },
     {
       "type": "link_list",
